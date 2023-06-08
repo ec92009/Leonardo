@@ -1,0 +1,180 @@
+Beach Scenes - Sun, sand, ocean waves, palm trees, swimming, beach umbrellas, beach chairs, tropical drinks, boating, shore birds.
+City Breaks - Skyscrapers, street signs, public transport, local attractions, shopping, dining, parks, historical landmarks, nightlife, street performers.
+National Parks - Mountains, rivers and lakes, wildlife, hiking trails, campgrounds, scenic views, waterfalls, rock formations, forests, designated natural wonders.
+Road Trips - Adventure, car rental, scenic highways, landscapes, gas stations, motels, pit-stops, route maps, vintage vehicles, driving safety.
+Cultural Heritage - Museums, cathedrals, architecture, street scenes, art galleries, cultural events, religious landmarks, cuisine, folk traditions, local costumes.
+Adventure Sports - Rafting, kayaking, hiking, biking, skiing, snowboarding, surfing, zip-lining, paragliding, extreme challenges.
+Luxury Escapes - Resorts, mansions, spas, golf courses, private beaches, yacht clubs, gourmet dining, fine wines, indoor pools, lavish accommodations.
+Family Fun - Amusement parks, zoos, theme parks, puppet shows, carnivals, picnics, theaters, aquariums, arcades, family-friendly attractions.
+Backpacking - Hostels, budget travel, camping, backpacks, train journeys, cheap eats, alternative tours, selfie sticks, cultural immersion, travel hacks.
+Wellness Retreats - Yoga, meditation, holistic treatments, healing springs, organic cuisine, detoxing, spiritual tourism, nature walks, remote destinations, mindful escapism.
+Financial planning and analysis - budgeting, forecasting, data analysis, financial modeling, performance metrics, KPIs, business strategy, statistics, market research, financial statements
+Entrepreneurship and startups - innovation, creativity, leadership, management, risk-taking, networking, collaboration, problem-solving, funding, growth
+Banking and investments - savings, loans, mortgages, credit cards, financial planning, investment options, stock markets, portfolio management, risk management
+Accounting and bookkeeping - tax preparation, auditing, compliance, payroll, invoicing, tax laws, financial reporting, cash flow analysis, record-keeping
+Marketing and advertising - brand awareness, promotion, market research, social media, digital marketing, advertising campaigns, market trends, online marketing, customer loyalty
+E-commerce and online business - online shopping, mobile commerce, e-payment systems, online security, e-commerce platforms, website design, online marketing, online marketplaces, customer experience
+Human resources and talent management - recruitment, retention, talent development, labor laws, HR analytics, performance management, workforce diversity, employee engagement, employee benefits
+Corporate social responsibility - sustainability, ethical business practices, environmental impact, social impact, community development, CSR programs, corporate governance, stakeholder engagement, triple bottom line
+International business and globalization - cross-cultural communication, global trade, cultural diversity, international regulations, global supply chains, foreign investments, global markets, emerging economies, multinational corporations
+Law and legal services - corporate law, contracts, intellectual property, labor laws, dispute resolution, litigation, regulatory compliance, legal research, legal services.
+Fruit, healthy, ripe, juicy, refreshing, colorful, natural, organic, summer, tropical 
+Coffee, latte, caffeine, aroma, brewed, barista, espresso, morning, cappuccino, beans 
+Pizza, pepperoni, cheese, spicy, delicious, Italian, crusty, baked, toppings, tomato sauce 
+Beer, cheers, cold, refreshing, frothy, brewery, pub, ale, amber, foam 
+Grilling, barbecue, steak, meat, burger, smoke, outdoor, flame, charcoal, skewers 
+Sushi, soy sauce, chopsticks, fresh, Japanese, rolls, salmon, wasabi, seafood, seaweed 
+Chocolate, dessert, indulgence, sweet, cocoa, creamy, truffles, fondue, ganache, decadence 
+Wine, vineyard, cellar, red, white, glass, bottle, cork, aged, aroma 
+Salad, healthy eating, greens, fresh, veggies, dressing, bowls, rainbow, toppings, nutritious 
+Cocktails, bartending, mixology, shaken, stirred, tropical, gin, rum, vodka, garnish
+Yoga and Meditation - relaxation, mindfulness, stretching, balance, zen, peace, healthy lifestyle, concentration, harmony, inner peace
+Diet and Nutrition - healthy eating, fruits and vegetables, meal planning, portion control, vitamins and minerals, energy boost, weight management, detoxification, antioxidants, hydration
+Fitness and Exercise - cardio, strength training, endurance, bodybuilding, outdoor activities, workout equipment, gym, sports, weight lifting, self-discipline
+Mental Health - emotional wellbeing, stress relief, anxiety management, therapy, self-care, coping skills, mindfulness, positivity, self-esteem, self-awareness
+Spa and Massage - pampering, relaxation, rejuvenation, aromatherapy, hot stones, body scrubs, facials, foot massage, stress relief, healing
+Nature and Outdoors - hiking, camping, biking, running, trekking, forest wellness, mountain climbing, fresh air, stress relief, adventure
+Alternative Medicine - acupuncture, herbal remedies, aromatherapy, crystal healing, massage therapy, holistic health, naturopathy, meditation, Reiki, chakra balancing
+Medical Science and Technology - medical equipment, blood donation, vaccination, telehealth, medical research, genome sequencing, pharmaceuticals, medical insurance, medical staff, healthy habits
+Sleep Hygiene - restful sleep, insomnia, sleep disorders, sleep environment, bedtime routine, sleep quality, sleep aids, stress management, relaxation techniques, sleep patterns
+Senior Health and Wellness - healthy aging, retirement planning, assisted living, long-term care, dementia, elder care, geriatric care, exercise for seniors, nutrition for seniors, mental health for seniors
+Books - knowledge, study, education, textbooks, library, research, reading, literature, information, intellect.
+Classroom - teaching, students, school, chalkboard, learning, lectures, lesson, study group, education, seminar.
+Technology - online learning, e-books, digital devices, e-learning, computers, distance learning, remote classes, wifi, internet, apps.
+Science lab - experiments, laboratory, research, scientific method, hypothesis, data analysis, equipment, microscope, chemical reactions, lab coat.
+College campus - higher education, university life, student activities, socializing, campus tours, college community, extracurricular, sports, clubs, student diversity.
+Creative arts - music, writing, performing arts, art supplies, creativity, concerts, plays, musical instruments, dance, theater.
+Tutoring - one-on-one teaching, academic support, homework help, private lessons, exam preparation, coaching, educational guidance, personalized learning, mentorship.
+Online education - web-based courses, virtual learning, live webinars, educational videos, e-tutoring, remote work, online seminars, video conferencing, online degrees.
+Children's education - early childhood learning, kindergarten, homeschooling, family learning, children's books, learning through play, child growth, daycare, afterschool programs.
+Graduation - commencement ceremony, caps and gowns, alumni, university programs, graduation speech, diploma, collegiate achievement, higher education, celebratory decor, life after graduation.
+Mobile Devices - smartphone, tablet, apps, device, screen, touch, communication, mobility, Internet, connection
+Artificial Intelligence - AI, robot, cyborg, machine learning, automation, neural network, data analytics, computer vision, chatbot, algorithm
+Cybersecurity - hacker, cyber attack, encryption, phishing, firewall, data breach, password, vulnerability, antivirus, cybercrime
+Smart Home - home automation, internet of things, IoT, smart speaker, Alexa, Google Home, connected devices, voice recognition, security, comfort
+Virtual Reality - VR, headset, simulation, gaming, experience, immersion, 360 degree, interactivity, entertainment, education
+Cloud Computing - cloud storage, server, data center, SaaS, PaaS, IaaS, AWS, Google Cloud, Microsoft Azure, hybrid cloud
+E-commerce - online shopping, website, customer, shopping cart, payment, delivery, marketplace, mobile commerce, social commerce, product
+Blockchain - cryptocurrency, bitcoin, ethereum, token, transaction, ledger, decentralization, smart contract, mining, digital asset
+Medical Technology - health care, telemedicine, medical device, patient, diagnosis, treatment, biotechnology, digital health, pharmaceutical, life sciences
+Renewable Energy - solar power, wind turbines, hydroelectricity, bioenergy, geothermal, clean energy, carbon footprint, sustainability, green technology, energy efficient.
+Family dinner - Food, table setting, togetherness, conversation, bonding, sharing, laughter, joy, happiness, home.
+Grandparents and grandchildren - Love, affection, care, playtime, storytelling, wisdom, memories, generations, family ties, laughter.
+Family vacation - Travel, adventure, fun, relaxation, exploration, experience, memories, love, bonding, togetherness.
+Couple in love - Romance, intimacy, affection, joy, companionship, trust, love, togetherness, happiness, relationship.
+New parents with baby - Love, care, family, joy, happiness, bonding, parenting, newborn, sleepless nights, cooing.
+Siblings - Love-hate, camaraderie, bonding, playtime, sharing, laughter, togetherness, siblings' rivalry, memories, friendship.
+Pet and family - Unconditional love, fun, bonding, responsibility, care, companionship, pet therapy, happiness, playtime, togetherness.
+Family gardening - Nature, plants, growth, responsibility, bonding, teamwork, fresh produce, togetherness, hobby, relaxation.
+Multi-generational family - Family ties, bonding, love, diversity, care, tradition, togetherness, memories, support, joy.
+Family reading time - Literacy, love for books, relaxation, bonding, storytelling, imagination, education, family values, togetherness, fun.
+Forests - Trees, Leaves, Woods, Wild, Greenery, Ecosystem, Oxygen, Oxygenation, Natural, Scenic
+Oceans - Waves, Coral reefs, Marine life, Seashells, Sand, Seagulls, Tides, Beaches, Water, Blue
+Mountains - Peaks, Hikes, Trails, Cliffs, Snowcapped, Panorama, Landscape, Misty, Alpine, Valleys
+Rivers - Rapids, Banks, Flowing, Stones, Calm, Waterfalls, Serene, Nature, Reflections, Clear
+Wildlife - Animals, Habitats, Protection, Sanctuaries, Jungle, Wild, Safari, Preservation, Bird Watching, Eco-tourism
+Flowers - Blossoms, Petals, Gardens, Blooming, Botany, Pollen, Fragrant, Nature, Daisy, Sunflowers
+Climate change- Melting, Carbon Footprint, Ways to reduce, Saving Resources, Eco-Friendly Practices, Renewable Energy, Global warming, Solar Energy, Effects, Solutions
+National parks - Scenic, Explore, Adventure, Trails, Serene, Biodiversity, Camping, Hiking, Landscapes, Views
+Rural Landscapes - Countryside, Farm, Agriculture, Harvest, Rural Life, Rural paths, Serenity, Nature, Trees, Sunset
+Waterfalls - Cascades, Natural Beauty, Flowing, Streams, Adventure, River, Pools, Forests, Scenic, Mystical
+Running - marathon, jogger, shoes, race, fitness, exercise, outdoors, road, health, determination
+Yoga - mat, meditation, balance, relaxation, flexibility, wellness, namaste, stretch, pose, tranquility
+Cycling - road bike, cycling shorts, helmet, speed, endurance, pavement, exercise, outdoors, cycling shoes, health
+Swimming - pool, goggles, swim cap, freestyle, butterfly stroke, backstroke, breaststroke, swimmer, lanes, water
+Weightlifting - barbell, dumbbell, strength, fitness, gym, powerlifting, muscle, reps, plates, workout
+Soccer - cleats, ball, field, team, goal, kick, dribble, referee, net, sportsmanship
+Basketball - court, hoop, ball, jump, dribble, layup, three-pointer, net, team, defense
+Hiking - trail, trekking poles, backpack, mountain, nature, woods, rock, adventure, view, outdoors
+Tennis - racket, ball, court, serve, backhand, forehand, net, singles, doubles, match point
+Gymnastics - leotard, balance beam, floor, vault, gymnast, strength, flexibility, tumbling, competition, high bar
+Fireworks display - sparkle, explosion, night sky, celebration, colorful, holiday, party, festive, joy, entertainment
+Christmas decorations - ornaments, lights, tree, snow, candy canes, wreath, gift, festive, merry, jolly
+Thanksgiving feast - turkey, cranberry sauce, stuffing, pumpkin pie, gravy, yams, mashed potatoes, pecan pie, family, gathering
+Easter egg hunt - bunny, basket, Pastels, treats, flowers, spring, festive, hunt, colorful, eggs
+Birthday party - balloons, cake, candles, hats, presents, party favors, singing, confetti, celebrations, joy
+New Year's Eve bash - champagne, countdown, noise makers, party hats, sparklers, ball drop, confetti, festive, fun, New Year
+Hanukkah celebrations - menorah, dreidel, candles, Latkes, sufganiyot, gelt, blessings, family, holiday, lighting
+Ramadan Iftar dinner - dates, prayer, mosques, lanterns, family, gathering, food, traditions, celebrations, fasting
+Diwali celebrations - candles, lights, rangoli, sweets, fireworks, blessings, family, colors, culture, festival
+Chinese New Year festivities - dragon, lantern parade, fireworks, red envelopes, family, blessings, food, tradition, culture, celebration
+Hospitals and medical facilities - Doctor, nurse, patient, emergency, surgery, equipment, medicine, diagnosis, treatment, care 
+Medical research and development - Laboratory, experiment, scientist, microscope, testing, analysis, discovery, innovation, breakthrough, trial 
+Healthcare professionals - Health, wellness, specialist, therapist, counselor, care provider, support, professionalism, expertise, compassion 
+Mental health and therapy - Depression, anxiety, counseling, therapy, treatment, self-care, mindfulness, mental health, emotional support, wellness 
+Senior care and assisted living - Elderly, aging, care, assisted, senior living, health services, nursing, companionship, caregivers, lifestyle 
+Medical technology and innovation - Artificial intelligence, virtual reality, robotics, medical devices, telemedicine, software, big data, healthcare IT, digital health, wearable 
+Dental care and services - Teeth, dentist, oral health, hygiene, cavity, braces, toothbrush, floss, mouthwash, gum care 
+Alternative medicine and healing - Acupuncture, herbal medicine, yoga, meditation, massage, aromatherapy, natural remedies, spiritual healing, wellness practices, holistic therapy 
+Public health and preventive care - Vaccinations, disease prevention, health education, nutrition, hygiene, healthy living, community health, environmental health, safety, wellness 
+Medical education and training - Medical school, residency, continuing education, training programs, medical textbooks, professional development, simulation, skills assessment, healthcare administration, medical ethics.
+Delicious desserts - chocolate, cake, creamy, sweet, indulgent, fruit, tasty, whipped cream, icing, decadent
+Fruits and vegetables - colorful, fresh, organic, healthy, vitamins, nutrients, salad, juice, market, harvest
+Fast food - burger, fries, soda, pizza, fried chicken, fast, drive-thru, convenience, unhealthy, guilty pleasure
+Drinks and cocktails - martini, margarita, beer, wine, cocktail, ice, glass, refreshing, bar, happy hour
+BBQ and grill - steak, ribs, corn, burgers, hot dogs, grill marks, smoke, BBQ sauce, charcoal, summertime
+International cuisine - sushi, tacos, pasta, curry, stir fry, falafel, dumplings, paella, naan, kimchi
+Breakfast spread - pancakes, waffles, bacon, eggs, toast, yogurt, cereal, milk, syrup, morning
+Comfort food - mac and cheese, meatloaf, mashed potatoes, casseroles, pot pies, gravy, warmth, heartwarming, cozy, homey
+Baked goods - bread, croissants, muffins, bagels, cinnamon rolls, cookies, pastries, bakery, oven, aroma
+Seafood - shrimp, lobster, crab, clams, mussels, fish, oysters, seafood platter, fried, grilled.
+Beach Vacation - Sand, Sun, Ocean, Relaxation, Waves, Seashells, Boardwalk, Umbrella, Palms, Swimming
+Adventure Travel - Mountains, Camping, Hiking, Exploration, Wildlife, Rafting, Climbing, Backpacking, Scenery, Trekking
+City Tour - Architecture, Skyline, Culture, Museum, Landmarks, Traffic, Skyscrapers, Pedestrians, Nightlife, Urban
+Cruise Holidays - Deck, Port, Ship, Ocean View, Dining, Aqua Park, Entertainment, Excursion, Relaxation, Sea
+Road Trip - Car, Map, Highway, Landscape, Scenic Route, Stopover, Pit Stop, Adventure, Journey, Freedom
+Tropical Island - Rainforest, Waterfall, Coral Reef, Exotic Animals, Beach, Clear Waters, Sandbar, Diving, Snorkeling, Sunsets
+Train Journey - Railway, Luggage, Locomotive, Station, Passengers, Scenery, Sleeper Car, Dining, Sightseeing, Adventure
+Skiing and Snowboarding - Snow, Slopes, Ski Lift, Goggles, Helmet, Frozen Lakes, Snowshoeing, Après-Ski, Alpine, Winter Sports
+Family Vacation - Amusement Park, Playground, Resort, Kids, Family, Waterpark, Pool, Fun, Relaxation, Activities
+Cultural Holidays - Heritage, Religion, Art, Food, Architecture, Music, Tradition, People, Festivals, Passport.
+Futuristic technology: Artificial Intelligence, Robotics, Augmented Reality, Virtual Reality, Cybersecurity, Machine Learning, Big Data, Quantum Computing, Automation, Internet of Things.
+Digital communication: Social Media, Video Conferencing, Messaging, Email, Voice Assistant, Online Meeting, Telecommunication, Information Transfer, Digital Networking, Voice Call.
+E-commerce: Online shopping, Electronic payment, Digital Marketing, Virtual Shopping, Cryptocurrency, E-wallet, Online Marketplace, Online Retailer, Online Banking, Cashless Transaction.
+Cloud Computing: Cloud Storage, Cloud Security, Cloud Deployment, Cloud Database, Cloud Backup, Cloud Software, Content Delivery Network, Cloud Infrastructure, Multi-Cloud, Hybrid Cloud.
+Mobile Technology: Smartphone, Mobile Devices, Tablet, Mobile App, Wearable Technology, Mobile Commerce, Mobile Gaming, Mobile Payment, Mobile GPS, Mobile Security.
+3D Printing: Rapid Prototyping, Additive Manufacturing, Stereo lithography, Digital Fabrication, 3D Modeling, 3D Scanner, Industrial Design, 3D Scanning, 3D Rendering, 3D Animation.
+Renewable energy: Solar Power, Wind Power, Hydro Power, Geothermal Energy, Bioenergy, Tidal Energy, Wave Energy, Electric Vehicle, Electric Grid, Energy Storage.
+Green technology: Sustainable Architecture, Green Building, Eco-Friendly Products, Energy Efficiency, Sustainable Energy, Recycling, Waste Management, Green Energy, Carbon Footprint, Sustainable Transportation.
+Cybersecurity: Data Security, Network Security, Encryption, Antivirus, Cybercrime, Firewalls, Secure Communication, Digital Certificate, Biometric Security, Malware Protection.
+Blockchain: Cryptocurrency, Smart Contract, Blockchain Security, Digital Asset, Decentralized Network, Bitcoin, Public Ledger, Digital Identity, Distributed Ledger, Immutable Record.
+Forests – trees, leaves, wildlife, hiking, camping, greenery, nature trails, woodlands, pine cones, ferns
+Oceans – sea creatures, beach, waves, surfing, coral reefs, sand, seashells, marine life, sailing, sunsets
+Mountains – peaks, valleys, rock formations, snow, glaciers, mountaineering, wildflowers, alpine lakes, hiking trails, scenic vistas
+Rivers – waterfalls, rapids, kayaking, fishing, canoeing, scenic landscapes, river banks, bridges, wildlife, reflections
+National Parks – camping, scenic drives, hiking, wildlife, natural wonders, landmarks, waterfalls, lakes, mountain views, forests
+Deserts – sand dunes, rock formations, cactus, rattlesnakes, sunsets, hiking, sandstorms, mirages, oases, road trips
+Caves – stalactites, stalagmites, underground lakes, glow worms, darkness, exploration, spelunking, cave diving, rock formations, subterranean rivers
+Wildlife – animals, birds, insects, marine life, safari, national parks, zoos, habitats, migration, ecosystems
+Flowers – gardens, floral arrangements, wildflowers, plant life, botany, bee pollination, nature photography, color palettes, floral backgrounds
+Landscapes – sunsets, sunrises, mountains, rivers, beaches, forests, plains, natural wonders, city parks, countryside.
+Gym equipment: Dumbbell, treadmill, elliptical machine, resistance band, exercise ball, weight bench, kettlebell, spin bike, yoga mat, foam roller.
+Running: Jogging, marathon, road race, trail running, sneakers, finish line, warm-up, sprint, stretching, recovery.
+Yoga: Stretching, meditation, relaxation, balance, flexibility, strength, sunrise, sunset, outdoor, studio.
+Swimming: Pool, diving, freestyle, breaststroke, backstroke, butterfly, goggles, swim cap, diving board, lane ropes.
+Cycling: Tour de France, mountain biking, BMX, road cycling, cycling shoes, helmet, cycling computer, cycling jersey, cycling shorts, speed.
+Team sports: Soccer, basketball, baseball, volleyball, football, hockey, team spirit, practice, uniforms, game time.
+Strength training: Bodybuilding, powerlifting, squatting, lifting weights, barbell, weight plates, gym gloves, gym bag, motivaton, core strength.
+Outdoor fitness: Hiking, trekking, camping, backpacking, rock climbing, kayaking, canoeing, nature, adventure, fresh air.
+Dance fitness: Zumba, salsa, belly dancing, hip hop, ballroom dancing, jazzercise, aerobic dance, music, movement, fun.
+Martial arts: Karate, Judo, Tae Kwon Do, MMA, self-defense, discipline, respect, sparring, kicks, punches.
+School Supplies - pencils, notebooks, rulers, textbooks, backpacks, highlighters, erasers, paperclips, calculators, binders
+Classroom Environment - desks, chairs, whiteboards, posters, maps, chalkboards, projectors, carpets, books, windows
+Science Lab - test tubes, beakers, microscopes, lab coats, goggles, pipettes, Bunsen burners, chemicals, petri dishes, lab gloves
+Digital Learning - laptops, tablets, smartphones, headphones, computer screens, keyboards, mouses, online courses, webinars, e-books
+Student Life - group projects, extracurricular activities, sports, clubs, events, friendships, communication, social media, diversity, inclusivity
+Creative Arts - paintbrushes, canvases, musical instruments, costumes, dance, theater, poetry, literature, photography, design
+Teacher and Pupil - mentoring, guidance, encouragement, feedback, discussion, inspiration, role modeling, support, cooperation, respect
+Early Childhood Education - blocks, puzzles, toys, crafts, games, finger painting, coloring books, sandboxes, swings, educational play
+University Life - lectures, seminars, libraries, research, internships, academic writing, exams, career guidance, job fairs, campus landscapes
+Distance Education - video conference, online classes, telecommuting, E-learning, distance learning, virtual classrooms, remote education, telecommuting, online degrees, instructional design
+Family dinner - togetherness, conversation, dining table, food, love, bonding, relationship, smiles, laughter, sharing.
+Mother and child - affection, care, nurturing, love, childhood, parent, protection, embrace, happiness, trust.
+Father and child - support, guidance, mentorship, playfulness, fatherhood, activity, adventure, bonding, emotions, connection.
+Siblings - rivalry, friendship, siblinghood, laughter, sharing, memories, fights, love-hate, bonding, communication.
+Family vacation - travel, adventure, photography, sightseeing, relaxation, road trip, hotels, family time, fun, memories.
+Grandparents and grandchildren - wisdom, stories, love, bonding, mentoring, care, attention, timelessness, relationship, memories.
+Family celebration - party, togetherness, happiness, event, tradition, cake, gifts, decorations, joy, family reunion.
+Pet and family - loyalty, care, companionship, love, pet parenting, family bonding, responsibility, activity, fun, friendship.
+Couple in love - romance, trust, intimacy, commitment, passion, relationship goals, chemistry, togetherness, sharing, communication.
+Parents and teenage child - guidance, adolescence, understanding, trust, communication, emotional support, care, nurturing, respect, bonding.

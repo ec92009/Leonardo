@@ -1,0 +1,61 @@
+venv
+1-From-Leonardo
+2-Scaled
+3-Done
+*.zip
+*.gz
+*.sqlite3
+.DS_Store
+0-All Leonardo
+build
+dist
+models
+Real-ESRGAN
+realesrgan*
+venv
+.env
+__pycache__/2extraction.cpython-39.pyc
+__pycache__/3upscaling.cpython-39.pyc
+__pycache__/EC_utils.cpython-39.pyc
+__pycache__/scale_down.cpython-39.pyc
+A busy street in downtown New York City, New York City, stre-34-1-0x4x3.jpg
+A busy street in downtown New York City, New York City, stre-93-1-0x4x3.jpg
+A stunning view of the Grand Canyon, Grand Canyon, Arizona, -83-1-0x4x3.jpg
+A vibrant garden in full bloom, garden, flowers, plants, blo-96-1-0x4x3.jpg
+addTitle.py
+cleanPrompt.py
+EC_utils.py
+enterprise.jpg
+Generations.json
+genPrompts2.py
+iptc.py
+leonardo.py
+my_image.jpg
+No Background/Untitled 2.png
+No Background/Untitled 3.png
+No Background/Untitled 4.png
+No Background/Untitled 4.vectornator
+No Background/Untitled.png
+para.py
+prompts.txt
+prompts0.txt
+PyQT window.py
+PyQT window.spec
+Python.code-workspace
+requirements.txt
+scale_down.py
+scale_down.spec
+scale_down_comp.sh
+Sunrise over the valley, sunrise, valley, mountains, landsca-0-1-0x4x3.jpg
+Sunrise over the valley, sunrise, valley, mountains, landsca-22-1-0x4x3.jpg
+temp
+test.py
+test1.py
+test2.py
+tile2x2.py
+Underwater coral reef, coral reef, underwater, fish, marine -21-1-1x4x2.jpg
+windowed Press Me.py
+windowed Press Me.spec
+.vscode/settings.json
+.vscode/launch.json
+*.spec

@@ -1,6 +1,6 @@
 # Leonardo
 
-A few quick apps to interface wit Leonardo AI
+A few quick apps to interface with Leonardo AI
 
 0createDB: create a local sqlite3 database
 1generation: generates images in Leonardo

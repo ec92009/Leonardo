@@ -79,8 +79,11 @@ def one_pass():
                     elif ratio == 5:
                         ratio = 4
 
-                    resized_filename = os.path.join(
-                        dst_dir, f"{basename}x{ratio}.jpg")
+                    resized_filename = os.path.join(dst_dir, f"{basename}.jpg")
+                    if ratio > 1:
+                        resized_filename = os.path.join(
+                            dst_dir, f"{basename}x{ratio}.jpg")
+
                     # print(f'ratio = {ratio}')
                     if ratio >= 2:
                         ratio = max(2, ratio)

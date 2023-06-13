@@ -108,16 +108,16 @@ Train Journey - Railway, Luggage, Locomotive, Station, Passengers, Scenery, Slee
 Skiing and Snowboarding - Snow, Slopes, Ski Lift, Goggles, Helmet, Frozen Lakes, Snowshoeing, Après-Ski, Alpine, Winter Sports
 Family Vacation - Amusement Park, Playground, Resort, Kids, Family, Waterpark, Pool, Fun, Relaxation, Activities
 Cultural Holidays - Heritage, Religion, Art, Food, Architecture, Music, Tradition, People, Festivals, Passport.
-Futuristic technology: Artificial Intelligence, Robotics, Augmented Reality, Virtual Reality, Cybersecurity, Machine Learning, Big Data, Quantum Computing, Automation, Internet of Things.
-Digital communication: Social Media, Video Conferencing, Messaging, Email, Voice Assistant, Online Meeting, Telecommunication, Information Transfer, Digital Networking, Voice Call.
-E-commerce: Online shopping, Electronic payment, Digital Marketing, Virtual Shopping, Cryptocurrency, E-wallet, Online Marketplace, Online Retailer, Online Banking, Cashless Transaction.
-Cloud Computing: Cloud Storage, Cloud Security, Cloud Deployment, Cloud Database, Cloud Backup, Cloud Software, Content Delivery Network, Cloud Infrastructure, Multi-Cloud, Hybrid Cloud.
-Mobile Technology: Smartphone, Mobile Devices, Tablet, Mobile App, Wearable Technology, Mobile Commerce, Mobile Gaming, Mobile Payment, Mobile GPS, Mobile Security.
-3D Printing: Rapid Prototyping, Additive Manufacturing, Stereo lithography, Digital Fabrication, 3D Modeling, 3D Scanner, Industrial Design, 3D Scanning, 3D Rendering, 3D Animation.
-Renewable energy: Solar Power, Wind Power, Hydro Power, Geothermal Energy, Bioenergy, Tidal Energy, Wave Energy, Electric Vehicle, Electric Grid, Energy Storage.
-Green technology: Sustainable Architecture, Green Building, Eco-Friendly Products, Energy Efficiency, Sustainable Energy, Recycling, Waste Management, Green Energy, Carbon Footprint, Sustainable Transportation.
-Cybersecurity: Data Security, Network Security, Encryption, Antivirus, Cybercrime, Firewalls, Secure Communication, Digital Certificate, Biometric Security, Malware Protection.
-Blockchain: Cryptocurrency, Smart Contract, Blockchain Security, Digital Asset, Decentralized Network, Bitcoin, Public Ledger, Digital Identity, Distributed Ledger, Immutable Record.
+Futuristic technology - Artificial Intelligence, Robotics, Augmented Reality, Virtual Reality, Cybersecurity, Machine Learning, Big Data, Quantum Computing, Automation, Internet of Things.
+Digital communication - Social Media, Video Conferencing, Messaging, Email, Voice Assistant, Online Meeting, Telecommunication, Information Transfer, Digital Networking, Voice Call.
+E-commerce - Online shopping, Electronic payment, Digital Marketing, Virtual Shopping, Cryptocurrency, E-wallet, Online Marketplace, Online Retailer, Online Banking, Cashless Transaction.
+Cloud Computing - Cloud Storage, Cloud Security, Cloud Deployment, Cloud Database, Cloud Backup, Cloud Software, Content Delivery Network, Cloud Infrastructure, Multi-Cloud, Hybrid Cloud.
+Mobile Technology - Smartphone, Mobile Devices, Tablet, Mobile App, Wearable Technology, Mobile Commerce, Mobile Gaming, Mobile Payment, Mobile GPS, Mobile Security.
+3D Printing - Rapid Prototyping, Additive Manufacturing, Stereo lithography, Digital Fabrication, 3D Modeling, 3D Scanner, Industrial Design, 3D Scanning, 3D Rendering, 3D Animation.
+Renewable energy - Solar Power, Wind Power, Hydro Power, Geothermal Energy, Bioenergy, Tidal Energy, Wave Energy, Electric Vehicle, Electric Grid, Energy Storage.
+Green technology - Sustainable Architecture, Green Building, Eco-Friendly Products, Energy Efficiency, Sustainable Energy, Recycling, Waste Management, Green Energy, Carbon Footprint, Sustainable Transportation.
+Cybersecurity - Data Security, Network Security, Encryption, Antivirus, Cybercrime, Firewalls, Secure Communication, Digital Certificate, Biometric Security, Malware Protection.
+Blockchain - Cryptocurrency, Smart Contract, Blockchain Security, Digital Asset, Decentralized Network, Bitcoin, Public Ledger, Digital Identity, Distributed Ledger, Immutable Record.
 Forests – trees, leaves, wildlife, hiking, camping, greenery, nature trails, woodlands, pine cones, ferns
 Oceans – sea creatures, beach, waves, surfing, coral reefs, sand, seashells, marine life, sailing, sunsets
 Mountains – peaks, valleys, rock formations, snow, glaciers, mountaineering, wildflowers, alpine lakes, hiking trails, scenic vistas
@@ -128,16 +128,16 @@ Caves – stalactites, stalagmites, underground lakes, glow worms, darkness, exp
 Wildlife – animals, birds, insects, marine life, safari, national parks, zoos, habitats, migration, ecosystems
 Flowers – gardens, floral arrangements, wildflowers, plant life, botany, bee pollination, nature photography, color palettes, floral backgrounds
 Landscapes – sunsets, sunrises, mountains, rivers, beaches, forests, plains, natural wonders, city parks, countryside.
-Gym equipment: Dumbbell, treadmill, elliptical machine, resistance band, exercise ball, weight bench, kettlebell, spin bike, yoga mat, foam roller.
-Running: Jogging, marathon, road race, trail running, sneakers, finish line, warm-up, sprint, stretching, recovery.
-Yoga: Stretching, meditation, relaxation, balance, flexibility, strength, sunrise, sunset, outdoor, studio.
-Swimming: Pool, diving, freestyle, breaststroke, backstroke, butterfly, goggles, swim cap, diving board, lane ropes.
-Cycling: Tour de France, mountain biking, BMX, road cycling, cycling shoes, helmet, cycling computer, cycling jersey, cycling shorts, speed.
-Team sports: Soccer, basketball, baseball, volleyball, football, hockey, team spirit, practice, uniforms, game time.
-Strength training: Bodybuilding, powerlifting, squatting, lifting weights, barbell, weight plates, gym gloves, gym bag, motivaton, core strength.
-Outdoor fitness: Hiking, trekking, camping, backpacking, rock climbing, kayaking, canoeing, nature, adventure, fresh air.
-Dance fitness: Zumba, salsa, belly dancing, hip hop, ballroom dancing, jazzercise, aerobic dance, music, movement, fun.
-Martial arts: Karate, Judo, Tae Kwon Do, MMA, self-defense, discipline, respect, sparring, kicks, punches.
+Gym equipment - Dumbbell, treadmill, elliptical machine, resistance band, exercise ball, weight bench, kettlebell, spin bike, yoga mat, foam roller.
+Running - Jogging, marathon, road race, trail running, sneakers, finish line, warm-up, sprint, stretching, recovery.
+Yoga - Stretching, meditation, relaxation, balance, flexibility, strength, sunrise, sunset, outdoor, studio.
+Swimming - Pool, diving, freestyle, breaststroke, backstroke, butterfly, goggles, swim cap, diving board, lane ropes.
+Cycling - Tour de France, mountain biking, BMX, road cycling, cycling shoes, helmet, cycling computer, cycling jersey, cycling shorts, speed.
+Team sports - Soccer, basketball, baseball, volleyball, football, hockey, team spirit, practice, uniforms, game time.
+Strength training - Bodybuilding, powerlifting, squatting, lifting weights, barbell, weight plates, gym gloves, gym bag, motivaton, core strength.
+Outdoor fitness - Hiking, trekking, camping, backpacking, rock climbing, kayaking, canoeing, nature, adventure, fresh air.
+Dance fitness - Zumba, salsa, belly dancing, hip hop, ballroom dancing, jazzercise, aerobic dance, music, movement, fun.
+Martial arts - Karate, Judo, Tae Kwon Do, MMA, self-defense, discipline, respect, sparring, kicks, punches.
 School Supplies - pencils, notebooks, rulers, textbooks, backpacks, highlighters, erasers, paperclips, calculators, binders
 Classroom Environment - desks, chairs, whiteboards, posters, maps, chalkboards, projectors, carpets, books, windows
 Science Lab - test tubes, beakers, microscopes, lab coats, goggles, pipettes, Bunsen burners, chemicals, petri dishes, lab gloves

@@ -103,12 +103,13 @@ def add_photo(conn, photo_id, generation_id, url, nsfw, likeCount):
 
     try:
         # Insert the photo into the 'photos' table
-        cursor.execute('''INSERT INTO photos (id, generation_id, url, nsfw, likeCount)
-                      VALUES (?, ?, ?, ?, ?)''', (photo_id, generation_id, url, nsfw, likeCount))
-        print(f'added photo to database: {photo_id}')
+        sql = f'''INSERT OR REPLACE INTO photos (id, generation_id, url, nsfw, likeCount)
+                      VALUES (?, ?, ?, ?, ?)'''
+        cursor.execute(sql, (photo_id, generation_id, url, nsfw, likeCount))
+        print(f'added/updated photo to database: {photo_id}')
 
     except Exception as e:
-        # traceback.print_exc()
+        print(f'Exception {e} error adding photo {photo_id}')
         pass
 
     # Commit the changes and close the connection
@@ -224,12 +225,12 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
 
                 outfile = f"{outfolder}/{filename}"
                 # if outfile does not already exist, download it
+                add_photo(conn, photoId, generation_id,
+                          url, nsfw, likeCount)
                 if not os.path.exists(outfile):
                     urllib.request.urlretrieve(url, outfile)
                     add_iptc_metadata_to_image(
                         outfile, title, keywords)
-                    add_photo(conn, photoId, generation_id,
-                              url, nsfw, likeCount)
                     total_images += 1
 
             except Exception as e:
@@ -251,11 +252,11 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
                         os.makedirs(outfolder, exist_ok=True)
                         outfile = f"{outfolder}/{filename}"
                         # if outfile does not already exist, download it
+                        add_variant(conn, photoId, var_id, var_type, url)
                         if not os.path.exists(outfile):
                             urllib.request.urlretrieve(var_url, outfile)
                             add_iptc_metadata_to_image(
                                 outfile, title, keywords)
-                            add_variant(conn, photoId, var_id, var_type, url)
                             total_images += 1
                     except Exception as e:
                         traceback
@@ -330,7 +331,7 @@ if __name__ == "__main__":
         description='Download the Leonardo images from the last N days')
 
     # Add an optional argument with a default value
-    parser.add_argument('-d', '--days', type=int, default=3,
+    parser.add_argument('-d', '--days', type=int, default=2,
                         help='Number of days to download')
     # Add an optional argument with a default value
     parser.add_argument('-l', '--leonardo_dir', type=str, default="/Users/ecohen/Documents/LR/_All Leonardo",

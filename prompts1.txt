@@ -1,100 +1,175 @@
-Beautiful sunset over the ocean: sunset, ocean, beauty, nature, colorful, horizon, reflection, waves, serenity, evening, dusk, water, sky, scenic
+Beautiful sunset over the ocean -- sunset, ocean, beauty, nature, colorful, horizon, reflection, waves, serenity, evening, dusk, water, sky, scenic
 -----------------------------------
-Adventurous hiker climbing a mountain: hiking, adventure, mountain, nature, outdoors, trekking, wilderness, challenge, summit, landscape, exploration, trail, rocks, breathtaking
+Adventurous hiker climbing a mountain -- hiking, adventure, mountain, nature, outdoors, trekking, wilderness, challenge, summit, landscape, exploration, trail, rocks, breathtaking
 -----------------------------------
-Charming old town architecture in Europe: old town, architecture, Europe, history, travel, cobblestone, cultural, heritage, streets, picturesque, buildings, city, tourism, landmark
+Charming old town architecture in Europe -- old town, architecture, Europe, history, travel, cobblestone, cultural, heritage, streets, picturesque, buildings, city, tourism, landmark
 -----------------------------------
-Scenic view of a waterfall: waterfall, nature, landscape, flowing, serene, beauty, cascading, fresh, spray, green, rocks, tranquil, natural, outdoor
+Scenic view of a waterfall -- waterfall, nature, landscape, flowing, serene, beauty, cascading, fresh, spray, green, rocks, tranquil, natural, outdoor
 -----------------------------------
-Majestic snow-capped mountain peak: mountain, snow-capped, peak, alpine, majestic, summit, wilderness, adventure, nature, landscape, snowy, breathtaking, panoramic, hiking
+Majestic snow-capped mountain peak -- mountain, snow-capped, peak, alpine, majestic, summit, wilderness, adventure, nature, landscape, snowy, breathtaking, panoramic, hiking
 -----------------------------------
-Vibrant autumn colors in the forest: autumn, colors, forest, foliage, vibrant, nature, picturesque, scenic, leaves, trees, peaceful, tranquility, hiking, outdoor
+Vibrant autumn colors in the forest -- autumn, colors, forest, foliage, vibrant, nature, picturesque, scenic, leaves, trees, peaceful, tranquility, hiking, outdoor
 -----------------------------------
-Tropical paradise beach: beach, tropical, paradise, ocean, palm trees, white sand, turquoise water, relaxation, exotic, summer, vacation, getaway
+Tropical paradise beach -- beach, tropical, paradise, ocean, palm trees, white sand, turquoise water, relaxation, exotic, summer, vacation, getaway
 -----------------------------------
-Enchanting night sky full of stars: stars, night sky, enchanting, celestial, astronomy, universe, stargazing, cosmic, milky way, constellations, peaceful, awe-inspiring
+Enchanting night sky full of stars -- stars, night sky, enchanting, celestial, astronomy, universe, stargazing, cosmic, milky way, constellations, peaceful, awe-inspiring
 -----------------------------------
-Urban cityscape at sunset: cityscape, urban, skyline, sunset, city lights, architecture, modern, vibrant, bustling, evening, downtown, panoramic
+Urban cityscape at sunset -- cityscape, urban, skyline, sunset, city lights, architecture, modern, vibrant, bustling, evening, downtown, panoramic
 -----------------------------------
-Tranquil lake surrounded by mountains: lake, mountains, serene, tranquil, reflection, peaceful, nature, landscape, clear water, scenic, calm, hiking, picturesque
+Tranquil lake surrounded by mountains -- lake, mountains, serene, tranquil, reflection, peaceful, nature, landscape, clear water, scenic, calm, hiking, picturesque
 -----------------------------------
-Lush green forest with sun rays: forest, green, nature, sunlight, trees, lush, foliage, scenic, tranquil, serenity, sunlight, woods, peaceful, natural, outdoor
+Lush green forest with sun rays -- forest, green, nature, sunlight, trees, lush, foliage, scenic, tranquil, serenity, sunlight, woods, peaceful, natural, outdoor
 -----------------------------------
-Stunning aerial view of a city skyline: aerial view, city skyline, urban, architecture, buildings, modern, metropolitan, downtown, panorama, cityscape, lights, vibrant, bustling, panorama
+Stunning aerial view of a city skyline -- aerial view, city skyline, urban, architecture, buildings, modern, metropolitan, downtown, panorama, cityscape, lights, vibrant, bustling, panorama
 -----------------------------------
-Cascading waterfall in a tropical rainforest: waterfall, tropical, rainforest, nature, cascading, water, lush, foliage, jungle, serenity, adventure, exotic, scenic, tranquil, outdoor
+Cascading waterfall in a tropical rainforest -- waterfall, tropical, rainforest, nature, cascading, water, lush, foliage, jungle, serenity, adventure, exotic, scenic, tranquil, outdoor
 -----------------------------------
-Majestic canyon with towering cliffs: canyon, cliffs, nature, majestic, landscape, rocks, rugged, scenic, wilderness, adventure, exploration, vast, breathtaking, dramatic, outdoors
+Majestic canyon with towering cliffs -- canyon, cliffs, nature, majestic, landscape, rocks, rugged, scenic, wilderness, adventure, exploration, vast, breathtaking, dramatic, outdoors
 -----------------------------------
-Colorful hot air balloons in the sky: hot air balloons, colorful, sky, adventure, festival, flying, joy, leisure, balloons, travel, vibrant, floating, aerial, breathtaking, panorama
+Colorful hot air balloons in the sky -- hot air balloons, colorful, sky, adventure, festival, flying, joy, leisure, balloons, travel, vibrant, floating, aerial, breathtaking, panorama
 -----------------------------------
-Rustic wooden cabin in a snowy mountain: cabin, snowy mountain, winter, snow, cozy, rustic, wooden, solitude, peaceful, nature, retreat, landscape, serenity, scenic, outdoor
+Rustic wooden cabin in a snowy mountain -- cabin, snowy mountain, winter, snow, cozy, rustic, wooden, solitude, peaceful, nature, retreat, landscape, serenity, scenic, outdoor
 -----------------------------------
-Spectacular sunrise over a tranquil lake: sunrise, tranquil lake, nature, water, reflection, serene, calm, scenic, peaceful, morning, beauty, dawn, orange, sky, breathtaking
+Spectacular sunrise over a tranquil lake -- sunrise, tranquil lake, nature, water, reflection, serene, calm, scenic, peaceful, morning, beauty, dawn, orange, sky, breathtaking
 -----------------------------------
-Golden wheat field in the countryside: wheat field, countryside, agriculture, golden, harvest, rural, farming, nature, landscape, summer, farm, grains, growth, scenic, peaceful
+Golden wheat field in the countryside -- wheat field, countryside, agriculture, golden, harvest, rural, farming, nature, landscape, summer, farm, grains, growth, scenic, peaceful
 -----------------------------------
-Magical underwater world with coral reef: underwater, coral reef, marine life, tropical, colorful, fish, snorkeling, scuba diving, ocean, exotic, beauty, vibrant, aquatic, adventure
+Magical underwater world with coral reef -- underwater, coral reef, marine life, tropical, colorful, fish, snorkeling, scuba diving, ocean, exotic, beauty, vibrant, aquatic, adventure
 -----------------------------------
-Stunning autumn foliage in a park: autumn foliage, park, trees, colorful, leaves, nature, vibrant, scenic, beauty, fall, peaceful, tranquility, serene, outdoors, seasonal
+Stunning autumn foliage in a park -- autumn foliage, park, trees, colorful, leaves, nature, vibrant, scenic, beauty, fall, peaceful, tranquility, serene, outdoors, seasonal
 -----------------------------------
-Dramatic storm clouds over a rugged coastline: storm clouds, rugged coastline, dramatic, weather, ocean, waves, power, stormy, sky, coastal, nature, scenic, dramatic, atmospheric
+Dramatic storm clouds over a rugged coastline -- storm clouds, rugged coastline, dramatic, weather, ocean, waves, power, stormy, sky, coastal, nature, scenic, dramatic, atmospheric
 -----------------------------------
-Serene mountain lake surrounded by peaks: mountain lake, serene, peaks, reflection, landscape, tranquil, calm, nature, water, mountains, scenic, wilderness, peaceful, hiking, outdoors
+Serene mountain lake surrounded by peaks -- mountain lake, serene, peaks, reflection, landscape, tranquil, calm, nature, water, mountains, scenic, wilderness, peaceful, hiking, outdoors
 -----------------------------------
-Charming flower garden in full bloom: flower garden, blooms, colorful, flowers, nature, vibrant, fragrance, botanical, beauty, gardening, outdoors, peaceful, scenic, tranquility, summer
+Charming flower garden in full bloom -- flower garden, blooms, colorful, flowers, nature, vibrant, fragrance, botanical, beauty, gardening, outdoors, peaceful, scenic, tranquility, summer
 -----------------------------------
-Awe-inspiring view from a mountaintop: mountaintop, breathtaking view, nature, panorama, landscape, summit, adventure, hiking, wilderness, vast, majestic, scenic, beauty, outdoor
+Awe-inspiring view from a mountaintop -- mountaintop, breathtaking view, nature, panorama, landscape, summit, adventure, hiking, wilderness, vast, majestic, scenic, beauty, outdoor
 -----------------------------------
-Picturesque vineyard in the countryside: vineyard, countryside, wine, grapes, winery, rural, agriculture, scenic, landscape, harvest, serenity, peaceful, rustic, agriculture, beauty
+Picturesque vineyard in the countryside -- vineyard, countryside, wine, grapes, winery, rural, agriculture, scenic, landscape, harvest, serenity, peaceful, rustic, agriculture, beauty
 -----------------------------------
-Exotic tropical fish in a coral reef: tropical fish, coral reef, underwater, marine life, colorful, exotic, snorkeling, scuba diving, ocean, vibrant, aquatic, beauty, adventure, exploration
+Exotic tropical fish in a coral reef -- tropical fish, coral reef, underwater, marine life, colorful, exotic, snorkeling, scuba diving, ocean, vibrant, aquatic, beauty, adventure, exploration
 -----------------------------------
-Charming cobblestone street in a historic town: cobblestone street, historic town, architecture, heritage, old town, charming, cultural, picturesque, quaint, buildings, history, scenic, beauty, travel
+Charming cobblestone street in a historic town -- cobblestone street, historic town, architecture, heritage, old town, charming, cultural, picturesque, quaint, buildings, history, scenic, beauty, travel
 -----------------------------------
-Graceful waterfall in a lush forest: waterfall, forest, nature, lush, green, water, flow, serene, beauty, scenic, peaceful, tranquil, adventure, hiking, outdoor
+Graceful waterfall in a lush forest -- waterfall, forest, nature, lush, green, water, flow, serene, beauty, scenic, peaceful, tranquil, adventure, hiking, outdoor
 -----------------------------------
-Aerial view of a beautiful island paradise: aerial view, island, paradise, beach, ocean, tropical, white sand, turquoise water, palm trees, scenic, relaxation, vacation, getaway, stunning
+Aerial view of a beautiful island paradise -- aerial view, island, paradise, beach, ocean, tropical, white sand, turquoise water, palm trees, scenic, relaxation, vacation, getaway, stunning
 -----------------------------------
-Majestic snow-covered mountain range: snow-covered mountain, majestic, winter, snow, landscape, peak, alpine, wilderness, adventure, nature, panoramic, breathtaking, outdoors
+Majestic snow-covered mountain range -- snow-covered mountain, majestic, winter, snow, landscape, peak, alpine, wilderness, adventure, nature, panoramic, breathtaking, outdoors
 -----------------------------------
-Majestic waterfall in a remote jungle: waterfall, jungle, nature, majestic, cascading, green, adventure, wilderness, serenity, tranquil, lush, scenic, outdoor, exploration
+Majestic waterfall in a remote jungle -- waterfall, jungle, nature, majestic, cascading, green, adventure, wilderness, serenity, tranquil, lush, scenic, outdoor, exploration
 -----------------------------------
-Spectacular sunset over a mountain range: sunset, mountain range, nature, sky, colors, silhouette, breathtaking, panoramic, beauty, landscape, serenity, peaceful, dusk, outdoors
+Spectacular sunset over a mountain range -- sunset, mountain range, nature, sky, colors, silhouette, breathtaking, panoramic, beauty, landscape, serenity, peaceful, dusk, outdoors
 -----------------------------------
-Enchanting forest with sunbeam rays: forest, sunbeam, nature, rays, trees, mystical, magical, serene, tranquil, lush, beauty, scenic, outdoor, peace
+Enchanting forest with sunbeam rays -- forest, sunbeam, nature, rays, trees, mystical, magical, serene, tranquil, lush, beauty, scenic, outdoor, peace
 -----------------------------------
-Iconic city skyline at night: city skyline, night, urban, lights, architecture, modern, vibrant, illuminated, skyline, city lights, nightlife, panoramic, bustling, cityscape
+Iconic city skyline at night -- city skyline, night, urban, lights, architecture, modern, vibrant, illuminated, skyline, city lights, nightlife, panoramic, bustling, cityscape
 -----------------------------------
-Picturesque coastal village by the sea: coastal village, sea, ocean, beach, quaint, charming, fishing, scenic, coastal, tranquil, peaceful, beauty, picturesque, serenity
+Picturesque coastal village by the sea -- coastal village, sea, ocean, beach, quaint, charming, fishing, scenic, coastal, tranquil, peaceful, beauty, picturesque, serenity
 -----------------------------------
-Breathtaking view from a cliff's edge: cliff's edge, view, nature, panoramic, breathtaking, scenic, height, adventure, awe-inspiring, landscape, dramatic, outdoors, wilderness
+Breathtaking view from a cliff's edge -- cliff's edge, view, nature, panoramic, breathtaking, scenic, height, adventure, awe-inspiring, landscape, dramatic, outdoors, wilderness
 -----------------------------------
-Tranquil countryside with rolling hills: countryside, rolling hills, nature, rural, serene, peaceful, picturesque, beauty, landscape, scenic, tranquil, farm, green, outdoors
+Tranquil countryside with rolling hills -- countryside, rolling hills, nature, rural, serene, peaceful, picturesque, beauty, landscape, scenic, tranquil, farm, green, outdoors
 -----------------------------------
-Vivid fields of blooming flowers: blooming flowers, fields, colorful, nature, vibrant, floral, spring, meadow, beauty, picturesque, scenic, outdoors, garden, tranquility
+Vivid fields of blooming flowers -- blooming flowers, fields, colorful, nature, vibrant, floral, spring, meadow, beauty, picturesque, scenic, outdoors, garden, tranquility
 -----------------------------------
-Dramatic stormy seascape with crashing waves: stormy seascape, crashing waves, ocean, dramatic, power, waves, rugged, coastal, nature, scenic, storm, turbulent, mesmerizing
+Dramatic stormy seascape with crashing waves -- stormy seascape, crashing waves, ocean, dramatic, power, waves, rugged, coastal, nature, scenic, storm, turbulent, mesmerizing
 -----------------------------------
-Remote wilderness campsite under starry sky: wilderness campsite, starry sky, remote, camping, nature, outdoor, serene, tranquility, adventure, solitude, night, stars, breathtaking
+Remote wilderness campsite under starry sky -- wilderness campsite, starry sky, remote, camping, nature, outdoor, serene, tranquility, adventure, solitude, night, stars, breathtaking
 -----------------------------------
-Captivating city architecture and skyline: city architecture, skyline, urban, buildings, modern, contemporary, cityscape, vibrant, bustling, architectural, panorama, landmark, city lights
+Captivating city architecture and skyline -- city architecture, skyline, urban, buildings, modern, contemporary, cityscape, vibrant, bustling, architectural, panorama, landmark, city lights
 -----------------------------------
-Gorgeous sunrise over a misty lake: sunrise, misty lake, nature, water, reflection, serene, calm, scenic, peaceful, morning, beauty, dawn, orange, breathtaking
+Gorgeous sunrise over a misty lake -- sunrise, misty lake, nature, water, reflection, serene, calm, scenic, peaceful, morning, beauty, dawn, orange, breathtaking
 -----------------------------------
-Serene Zen garden with stone pathway: Zen garden, stone pathway, serene, tranquility, meditation, peaceful, harmony, nature, beauty, rocks, balance, calm, scenic, outdoor
+Serene Zen garden with stone pathway -- Zen garden, stone pathway, serene, tranquility, meditation, peaceful, harmony, nature, beauty, rocks, balance, calm, scenic, outdoor
 -----------------------------------
-Enchanting autumn scenery with colorful foliage: autumn scenery, colorful foliage, nature, fall, leaves, vibrant, trees, seasonal, picturesque, beauty, tranquility, scenic, outdoors
+Enchanting autumn scenery with colorful foliage -- autumn scenery, colorful foliage, nature, fall, leaves, vibrant, trees, seasonal, picturesque, beauty, tranquility, scenic, outdoors
 -----------------------------------
-Exhilarating adventure sports in the mountains: adventure sports, mountains, adrenaline, extreme, outdoor, thrill, action, adventure, sports, landscape, breathtaking, exhilarating, nature
+Exhilarating adventure sports in the mountains -- adventure sports, mountains, adrenaline, extreme, outdoor, thrill, action, adventure, sports, landscape, breathtaking, exhilarating, nature
 -----------------------------------
-Peaceful lakeside cabin surrounded by nature: lakeside cabin, nature, serene, peaceful, cabin, lake, waterfront, tranquility, relaxation, scenic, getaway, outdoor, forest, solitude
+Peaceful lakeside cabin surrounded by nature -- lakeside cabin, nature, serene, peaceful, cabin, lake, waterfront, tranquility, relaxation, scenic, getaway, outdoor, forest, solitude
 -----------------------------------
-Stunning coastal cliffs with crashing waves: coastal cliffs, crashing waves, ocean, cliffs, dramatic, nature, rugged, power, scenic, coastal, breathtaking, mesmerizing, outdoors
+Stunning coastal cliffs with crashing waves -- coastal cliffs, crashing waves, ocean, cliffs, dramatic, nature, rugged, power, scenic, coastal, breathtaking, mesmerizing, outdoors
 -----------------------------------
-Idyllic countryside vineyard and winery: countryside vineyard, winery, wine, grapes, rural, countryside, scenic, agricultural, relaxation, serene, picturesque, beauty, vine, outdoors
+Idyllic countryside vineyard and winery -- countryside vineyard, winery, wine, grapes, rural, countryside, scenic, agricultural, relaxation, serene, picturesque, beauty, vine, outdoors
 -----------------------------------
-Charming historical architecture in a small town: historical architecture, small town, charm, heritage, cultural, history, buildings, quaint, picturesque, architecture, beauty, scenic, town square
+Charming historical architecture in a small town -- historical architecture, small town, charm, heritage, cultural, history, buildings, quaint, picturesque, architecture, beauty, scenic, town square
 -----------------------------------
-Peaceful lakeside retreat with mountain views: lakeside retreat, mountain views, nature, lake, mountains, scenic, tranquil, peaceful, serene, relaxation, retreat, beauty, outdoor
+Peaceful lakeside retreat with mountain views -- lakeside retreat, mountain views, nature, lake, mountains, scenic, tranquil, peaceful, serene, relaxation, retreat, beauty, outdoor
 -----------------------------------
+Majestic sunrise over rolling hills -- sunrise, rolling hills, nature, scenic, serene, tranquil, landscape, beauty, morning, dawn, colors, breathtaking, outdoors, countryside
+-----------------------------------
+Enchanting forest trail with dappled sunlight -- forest trail, dappled sunlight, nature, hiking, scenic, tranquil, serenity, adventure, trees, foliage, peaceful, beauty, outdoors
+-----------------------------------
+Picturesque coastal cliffs with turquoise waters -- coastal cliffs, turquoise waters, ocean, scenic, beauty, rugged, waves, coastal, mesmerizing, coastline, natural, outdoors, panoramic
+-----------------------------------
+Awe-inspiring mountain range panorama -- mountain range, panorama, nature, landscape, majestic, peaks, adventure, breathtaking, wilderness, hiking, scenic, outdoors, vast
+-----------------------------------
+Charming flower market in a bustling city -- flower market, bustling city, vibrant, flowers, colors, aroma, cultural, shopping, cityscape, beauty, outdoors, scenic, lively
+-----------------------------------
+Peaceful river flowing through a lush valley -- river, lush valley, nature, flowing, peaceful, serenity, tranquility, scenic, landscape, beauty, outdoors, green, refreshing
+-----------------------------------
+Captivating view of a city's skyline at dusk -- city skyline, dusk, urban, lights, architecture, modern, vibrant, panoramic, bustling, evening, city lights, twilight, cityscape
+-----------------------------------
+Breathtaking view of a snow-capped peak -- snow-capped peak, nature, mountain, summit, majestic, wilderness, adventure, breathtaking, panoramic, alpine, landscape, outdoors, snowy
+-----------------------------------
+Idyllic countryside farmhouse and fields -- countryside farmhouse, fields, rural, farm, agriculture, tranquil, peaceful, scenic, serenity, countryside, beauty, outdoors, picturesque
+-----------------------------------
+Serene coastal lighthouse at sunset -- coastal lighthouse, sunset, ocean, serene, tranquil, scenic, coastal, landscape, beauty, beacon, navigation, picturesque, coastal views
+-----------------------------------
+Enchanting pathway through a magical forest -- pathway, magical forest, nature, adventure, trees, scenic, beauty, serenity, tranquility, hiking, peaceful, outdoors, mystical
+-----------------------------------
+Rustic wooden bridge over a babbling brook -- wooden bridge, babbling brook, nature, peaceful, scenic, serene, landscape, tranquility, rural, woods, picturesque, outdoors, charming
+-----------------------------------
+Breathtaking view from a cliffside overlook -- cliffside overlook, view, nature, scenic, breathtaking, adventure, panorama, heights, landscape, outdoors, dramatic, awe-inspiring
+-----------------------------------
+Lush vineyard with rows of grapevines -- vineyard, grapevines, wine, grapes, rural, countryside, scenic, agriculture, winemaking, beauty, outdoors, harvest, serenity
+-----------------------------------
+Spectacular coral reef teeming with marine life -- coral reef, marine life, underwater, vibrant, colorful, fish, snorkeling, scuba diving, ocean, beauty, aquatic, adventure, exploration
+-----------------------------------
+Tranquil mountain lake nestled among trees -- mountain lake, tranquil, nature, landscape, serenity, peaceful, reflection, scenic, outdoors, calm, beauty, wilderness, hiking
+-----------------------------------
+Majestic waterfall cascading into a pool -- waterfall, cascading, pool, nature, flowing, serene, scenic, beauty, adventure, outdoors, tranquility, refreshing, picturesque
+-----------------------------------
+Charming village nestled in the hills -- charming village, hills, nature, countryside, scenic, rural, architecture, beauty, peace, serenity, quaint, picturesque, outdoors
+-----------------------------------
+Dramatic lightning storm over a city skyline -- lightning storm, city skyline, dramatic, night, thunderstorm, urban, lights, architecture, weather, power, atmospheric, vibrant
+-----------------------------------
+Tranquil beach with crystal clear waters -- beach, crystal clear waters, ocean, scenic, relaxation, sandy, coastline, coastal, serenity, paradise, tropical, beauty, refreshing
+-----------------------------------
+Stunning aerial view of a vibrant city -- aerial view, vibrant city, urban, skyline, lights, modern, bustling, panorama, architecture, cityscape, vibrant, cosmopolitan, panoramic
+-----------------------------------
+Enchanting waterfall hidden in the forest -- waterfall, hidden, forest, nature, cascading, serene, tranquil, adventure, hiking, lush, scenic, beauty, outdoors, wilderness
+-----------------------------------
+Gorgeous sunset over a calm lake -- sunset, calm lake, nature, serene, tranquil, reflection, scenic, beauty, peaceful, colorful, outdoors, twilight, breathtaking
+-----------------------------------
+Serenity and solitude in a remote mountain cabin -- remote mountain cabin, serenity, solitude, nature, peaceful, tranquil, relaxation, scenic, getaway, cabin, wilderness, outdoors, retreat
+-----------------------------------
+Picturesque vineyard with rows of grapevines -- vineyard, grapevines, wine, grapes, rural, countryside, scenic, agriculture, winemaking, beauty, outdoors, harvest, serenity
+-----------------------------------
+Mesmerizing starry night sky over a desert landscape -- starry night sky, desert landscape, nature, stars, night, celestial, universe, mystical, scenic, serene, adventure, outdoors
+-----------------------------------
+Captivating underwater world of a coral reef -- underwater world, coral reef, marine life, colorful, fish, snorkeling, scuba diving, ocean, beauty, aquatic, adventure, exploration
+-----------------------------------
+Breathtaking view from a mountaintop overlook -- mountaintop overlook, view, nature, scenic, breathtaking, adventure, panorama, heights, landscape, outdoors, dramatic, awe-inspiring
+-----------------------------------
+Enchanting pathway through a sunlit forest -- pathway, sunlit forest, nature, adventure, trees, scenic, beauty, serenity, tranquility, hiking, peaceful, outdoors, enchanting
+-----------------------------------
+Rustic wooden bridge over a peaceful stream -- wooden bridge, peaceful stream, nature, serene, scenic, landscape, tranquility, rural, woods, picturesque, outdoors, charming
+-----------------------------------
+Tranquil mountain lake surrounded by wilderness -- mountain lake, tranquil, nature, landscape, serenity, peaceful, reflection, scenic, outdoors, calm, beauty, hiking, wilderness
+-----------------------------------
+Majestic waterfall in a lush tropical setting -- waterfall, lush tropical setting, nature, cascading, green, adventure, wilderness, serenity, tranquil, lush, scenic, outdoor, exploration
+-----------------------------------
+Spectacular sunrise over a misty valley -- sunrise, misty valley, nature, scenic, serene, tranquil, landscape, beauty, morning, dawn, colors, breathtaking, outdoors, countryside
+-----------------------------------
+Cozy cabin nestled in a snowy mountain landscape -- cozy cabin, snowy mountain landscape, winter, cabin, nature, snow, scenic, tranquil, peaceful, serenity, beauty, outdoors, retreat
+-----------------------------------
+Picturesque coastal village with colorful buildings -- coastal village, colorful buildings, sea, ocean, beach, quaint, charming, fishing, scenic, coastal, tranquil, peaceful, beauty, picturesque
+-----------------------------------
+Breathtaking view of a canyon from a cliffside -- canyon view, cliffside, nature, scenic, breathtaking, adventure, panorama, heights, landscape, outdoors, dramatic, awe-inspiring
+-----------------------------------
+Tranquil forest with golden autumn foliage -- forest, golden autumn foliage, nature, fall, leaves, vibrant, trees, seasonal, picturesque, beauty, tranquility, scenic, outdoors
+-----------------------------------
+Exhilarating whitewater rafting adventure -- whitewater rafting, adventure, adrenaline, water, river, thrilling, extreme, outdoor, excitement, action, scenic, nature, exhilarating

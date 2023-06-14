@@ -135,22 +135,6 @@ def add_generation(conn, generation_id, prompt, modelId, negativePrompt, imageHe
     conn.commit()
 
 
-# def add_iptc_metadata_to_image(image_path, title, keywords):
-#     # Open the image file    # https://pypi.org/project/iptcinfo3/
-#     info = IPTCInfo(image_path, force=True)
-#     # Set the title
-#     info['object name'] = title[:120]
-#     # Set the keywords
-#     keywords_list = keywords.split(',')
-#     info['keywords'] = keywords_list
-#     # Save the changes
-#     info.save()
-#     tildaPath = f'{image_path}~'
-#     # delete the backup file
-#     if os.path.exists(tildaPath):
-#         os.remove(tildaPath)
-
-
 def keywordsFromPrompt(prompt):
     # remove punctuation
     prompt = prompt.replace(',', ' ').replace(';', ' ').replace(
@@ -182,6 +166,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
 
     # print(f'---->var1: {var1}')
     prompt = var1[0]["prompt"]
+    prompt = prompt.replace('\"', '').replace(':', '-').replace('\\', '')
     modelId = var1[0]["modelId"]
     negativePrompt = var1[0]["negativePrompt"]
     imageHeight = var1[0]["imageHeight"]

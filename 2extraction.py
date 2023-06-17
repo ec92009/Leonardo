@@ -183,6 +183,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
     createdAt = var1[0]["createdAt"]
     # print(f'-->created At: {createdAt}')
     createdDate = createdAt.split('T')[0]
+    createdSplit = createdDate.replace('-', '/')
     generation_id = var1[0]["id"]
     add_generation(conn, generation_id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps,
                    seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt)
@@ -205,7 +206,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
                 title = prompt
                 keywords = keywordsFromPrompt(prompt)
 
-                outfolder = f"{all_leonardo_dir}/{createdDate}"
+                outfolder = f"{all_leonardo_dir}/{createdSplit}"
                 os.makedirs(outfolder, exist_ok=True)
 
                 outfile = f"{outfolder}/{filename}"
@@ -233,7 +234,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
                         filename = f"{prompt[:60]}-{img_index}-{var_type}_{var_id}.jpg"
                         title = prompt
                         keywords = keywordsFromPrompt(prompt)
-                        outfolder = f"{all_leonardo_dir}/{createdDate}"
+                        outfolder = f"{all_leonardo_dir}/{createdSplit}"
                         os.makedirs(outfolder, exist_ok=True)
                         outfile = f"{outfolder}/{filename}"
                         # if outfile does not already exist, download it

@@ -6,6 +6,7 @@ venv
 *.zip
 *.gz
 *.sqlite3
+*.sqbpro
 .DS_Store
 0-All Leonardo
 build

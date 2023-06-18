@@ -257,17 +257,20 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
     return prompt, createdDate
 
 
-def extract(num_days, all_leonardo_dir):
+def extract(num_days, all_leonardo_dir, skip=0):
     global total_images
     today = datetime.date.today()
     # convert today to a string in the format YYYY-MM-DD
     today_str = today.strftime("%Y-%m-%d")
-    first_day = today - datetime.timedelta(days=num_days)
+    if num_days == 0:
+        first_day = datetime.date(2000, 1, 1)
+    else:
+        first_day = today - datetime.timedelta(days=num_days)
     # convert first_day to a string in the format YYYY-MM-DD
     first_day_str = first_day.strftime("%Y-%m-%d")
 
     subject = ""
-    iteration = 0
+    iteration = skip
     created = today_str
 
     # Create the database is database.sqlite3 does not exist
@@ -318,7 +321,10 @@ if __name__ == "__main__":
 
     # Add an optional argument with a default value
     parser.add_argument('-d', '--days', type=int, default=2,
-                        help='Number of days to download')
+                        help='Number of days to download - 0 for unlimited')
+    # Add an optional argument with a default value
+    parser.add_argument('-s', '--skip', type=int, default=0,
+                        help='Number of generations to skip')
     # Add an optional argument with a default value
     parser.add_argument('-l', '--leonardo_dir', type=str, default="/Users/ecohen/Documents/LR/_All Leonardo",
                         help='where to download')
@@ -329,6 +335,10 @@ if __name__ == "__main__":
     # Access the value
     num_days = args.days
     all_leonardo_dir = args.leonardo_dir
+    skip = args.skip
 
-    print(f'extracting {num_days} days to {all_leonardo_dir}')
-    extract(num_days, all_leonardo_dir)
+    if num_days == 0:
+        print(f'extracting all days to {all_leonardo_dir}')
+    else:
+        print(f'extracting {num_days} days to {all_leonardo_dir}')
+    extract(num_days, all_leonardo_dir, skip)

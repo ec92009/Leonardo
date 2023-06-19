@@ -3,16 +3,24 @@ from tkinter import filedialog
 import subprocess
 
 
-def list_directory():
+def perform_extraction():
     directory_path = entry.get()
-    days = days_entry.get()
-    generations = generations_entry.get()
+    days = days_entry.get() or 2
+    generations = generations_entry.get() or 0
     command = f"python -m 2extraction -l {directory_path} -d {days} -s {generations}"
-    result = subprocess.run(command, shell=True,
-                            capture_output=True, text=True)
-    output = result.stdout
+    process = subprocess.Popen(
+        command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     output_text.delete("1.0", tk.END)
-    output_text.insert(tk.END, output)
+
+    while True:
+        line = process.stdout.readline()
+        if not line:
+            break
+        output_text.insert(tk.END, line)
+        output_text.see(tk.END)
+        output_text.update_idletasks()
+
+    process.communicate()
 
 
 def browse_directory():
@@ -48,7 +56,6 @@ options_frame.pack(padx=10, pady=5, anchor=tk.W)
 days_label = tk.Label(options_frame, text="Number of Days:")
 days_label.pack(side=tk.LEFT)
 
-
 days_entry = tk.Entry(options_frame)
 days_entry.insert(tk.END, "2")  # Default value
 days_entry.pack(side=tk.LEFT, padx=5)
@@ -61,9 +68,9 @@ generations_entry = tk.Entry(options_frame)
 generations_entry.insert(tk.END, "0")  # Default value
 generations_entry.pack(side=tk.LEFT, padx=5)
 
-# Create a button to trigger the directory listing
+# Create a button to trigger the extraction
 button_label = f"Start Extraction to folder {entry.get()}, for the last {days_entry.get()} days, skipping the newest {generations_entry.get()} generations"
-button = tk.Button(window, text=button_label, command=list_directory)
+button = tk.Button(window, text=button_label, command=perform_extraction)
 button.pack(pady=10)
 
 # Create a scrollable text widget to display the output

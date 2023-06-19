@@ -7,6 +7,8 @@ venv
 *.gz
 *.sqlite3
 *.sqbpro
+*.jpg
+from_leonardo
 .DS_Store
 0-All Leonardo
 build
@@ -61,3 +63,4 @@ windowed Press Me.spec
 .vscode/settings.json
 .vscode/launch.json
 *.spec
+from_leonardo/2023/06/14/Aerial view of a beautiful island paradise- aerial view, isl-0-df2427b2-e601-4ee2-88e6-ad82f42dbe77.jpg

@@ -4,8 +4,12 @@ import subprocess   # Import subprocess module to run shell commands
 
 
 def list_directory():   # Function to list the directory
-    directory_path = entry.get()    # Get the directory path
-    command = f"ls -l {directory_path}"  # Create the command
+    directory_path = entry.get()
+    days_to_fetch = days_entry.get()
+    generations_to_skip = generations_entry.get()
+
+    # Create the command
+    command = f"python -m 2extraction -d {days_to_fetch} -l {directory_path} -s {generations_to_skip}"
     result = subprocess.run(command, shell=True,    # Run the command
                             capture_output=True, text=True)
     output = result.stdout  # Get the output
@@ -36,6 +40,26 @@ entry.pack(side=tk.LEFT, expand=True, fill=tk.X)        # Pack the entry field
 browse_button = tk.Button(entry_frame, text="...",
                           command=browse_directory, width=4)        # Create a button to browse the directory
 browse_button.pack(side=tk.RIGHT)    # Pack the button
+
+# Create an entry field to choose the number of days
+days_frame = tk.Frame(window)
+days_frame.pack(padx=10, pady=5, anchor=tk.W)
+
+days_label = tk.Label(window, text="Number of Days:")
+days_label.pack(side=tk.LEFT)
+
+days_entry = tk.Entry(window)
+days_entry.pack(side=tk.LEFT)
+
+# Create an entry field to choose the generations to skip
+generations_frame = tk.Frame(window)
+generations_frame.pack(padx=10, pady=5, anchor=tk.W)
+
+generations_label = tk.Label(generations_frame, text="Generations to Skip:")
+generations_label.pack(side=tk.LEFT)
+
+generations_entry = tk.Entry(generations_frame)
+generations_entry.pack(side=tk.LEFT)
 
 # Create a button to trigger the directory listing
 # Create a button to browse the directory

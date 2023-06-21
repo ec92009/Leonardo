@@ -274,10 +274,11 @@ def extract(num_days, all_leonardo_dir, skip=0):
     created = today_str
 
     # Create the database is database.sqlite3 does not exist
-    if not os.path.exists('database.sqlite3'):
-        create_db()
+    db_path = f'{all_leonardo_dir}/database.sqlite3'
+    if not os.path.exists(db_path):
+        create_db(db_path)
 
-    conn = sqlite3.connect('database.sqlite3')
+    conn = sqlite3.connect(db_path)
 
     while created > first_day_str:
         try:
@@ -308,9 +309,12 @@ def get_userid_from_bearer(bearer):
     return userid, username
 
 
-config = dotenv_values(".env")
-bearer = config["LEO_KEY"]
-userid, username = get_userid_from_bearer(bearer)
+try:
+    config = dotenv_values(".env")
+    bearer = config["LEO_KEY"]
+    print(f'using bearer key: from .env file')
+except Exception as e:
+    pass
 
 total_images = 0
 
@@ -319,6 +323,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='Download the Leonardo images from the last N days')
 
+    # Add an optional argument with a default value
+    parser.add_argument('-k', '--key', type=str, default="",
+                        help='Leonardo API key')
     # Add an optional argument with a default value
     parser.add_argument('-d', '--days', type=int, default=2,
                         help='Number of days to download - 0 for unlimited')
@@ -336,6 +343,12 @@ if __name__ == "__main__":
     num_days = args.days
     all_leonardo_dir = args.leonardo_dir
     skip = args.skip
+    if args.key != "":
+        bearer = args.key
+        print(f'using bearer key: from command line')
+
+    userid, username = get_userid_from_bearer(bearer)
+    print(f'userid: {userid}, username: {username}')
 
     if num_days == 0:
         print(f'extracting all days to {all_leonardo_dir}')

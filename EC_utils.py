@@ -6,9 +6,13 @@ from psd_tools import PSDImage
 import sqlite3
 
 
-def create_db():
+def create_db(db_path):
+    # Create a database file
+    if not os.path.exists(db_path):
+        open(db_path, 'w').close()
+
     # Create a connection to the database
-    conn = sqlite3.connect('database.sqlite3')
+    conn = sqlite3.connect(db_path)
 
     # Create a cursor object to execute SQL queries
     cursor = conn.cursor()

@@ -334,7 +334,7 @@ if __name__ == "__main__":
                         help='Number of generations to skip')
     # Add an optional argument with a default value
     parser.add_argument('-l', '--leonardo_dir', type=str, default="/Users/ecohen/Documents/LR/_All Leonardo",
-                        help='where to download')
+                        help='Where to download')
 
     # Parse the arguments
     args = parser.parse_args()

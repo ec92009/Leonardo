@@ -105,8 +105,8 @@ struct ContentView: View {
         stopExecution = false
         updateButtonLabel()
         
-        let command = "/Users/ecohen/Documents/Developer/AI/Leonardo/venv/bin/python -V"
-//        let command = "/Users/ecohen/Documents/Developer/AI/Leonardo/venv/bin/python -m /Users/ecohen/Documents/Developer/AI/Leonardo/2extraction -l \(outputFolder) -d \(numberOfDays) -s \(generationsToSkip)"
+//        let command = "/Users/ecohen/Documents/Developer/AI/Leonardo/venv/bin/python -V"
+        let command = "/Users/ecohen/Documents/Developer/AI/Leonardo/venv/bin/python /Users/ecohen/Documents/Developer/AI/Leonardo/2extraction.py -l \(outputFolder) -d \(numberOfDays) -s \(generationsToSkip)"
         let task = Process()
         task.launchPath = "/bin/bash"
         task.arguments = ["-c", command]

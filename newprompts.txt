@@ -1,10 +1,7 @@
-Yoga and Meditation - relaxation, mindfulness, stretching, balance, zen, peace, healthy lifestyle, concentration, harmony, inner peace
 Diet and Nutrition - healthy eating, fruits and vegetables, meal planning, portion control, vitamins and minerals, energy boost, weight management, detoxification, antioxidants, hydration
-Fitness and Exercise - cardio, strength training, endurance, bodybuilding, outdoor activities, workout equipment, gym, sports, weight lifting, self-discipline
 Mental Health - emotional wellbeing, stress relief, anxiety management, therapy, self-care, coping skills, mindfulness, positivity, self-esteem, self-awareness
 Spa and Massage - pampering, relaxation, rejuvenation, aromatherapy, hot stones, body scrubs, facials, foot massage, stress relief, healing
 Nature and Outdoors - hiking, camping, biking, running, trekking, forest wellness, mountain climbing, fresh air, stress relief, adventure
-Alternative Medicine - acupuncture, herbal remedies, aromatherapy, crystal healing, massage therapy, holistic health, naturopathy, meditation, Reiki, chakra balancing
 Medical Science and Technology - medical equipment, blood donation, vaccination, telehealth, medical research, genome sequencing, pharmaceuticals, medical insurance, medical staff, healthy habits
 Sleep Hygiene - restful sleep, insomnia, sleep disorders, sleep environment, bedtime routine, sleep quality, sleep aids, stress management, relaxation techniques, sleep patterns
 Senior Health and Wellness - healthy aging, retirement planning, assisted living, long-term care, dementia, elder care, geriatric care, exercise for seniors, nutrition for seniors, mental health for seniors
@@ -31,11 +28,13 @@ Renewable Energy - solar power, wind turbines, hydroelectricity, bioenergy, geot
 Family dinner - Food, table setting, togetherness, conversation, bonding, sharing, laughter, joy, happiness, home.
 Grandparents and grandchildren - Love, affection, care, playtime, storytelling, wisdom, memories, generations, family ties, laughter.
 Family vacation - Travel, adventure, fun, relaxation, exploration, experience, memories, love, bonding, togetherness.
+-----------------
 Couple in love - Romance, intimacy, affection, joy, companionship, trust, love, togetherness, happiness, relationship.
 New parents with baby - Love, care, family, joy, happiness, bonding, parenting, newborn, sleepless nights, cooing.
 Siblings - Love-hate, camaraderie, bonding, playtime, sharing, laughter, togetherness, siblings' rivalry, memories, friendship.
 Pet and family - Unconditional love, fun, bonding, responsibility, care, companionship, pet therapy, happiness, playtime, togetherness.
 Family gardening - Nature, plants, growth, responsibility, bonding, teamwork, fresh produce, togetherness, hobby, relaxation.
+----------------
 Multi-generational family - Family ties, bonding, love, diversity, care, tradition, togetherness, memories, support, joy.
 Family reading time - Literacy, love for books, relaxation, bonding, storytelling, imagination, education, family values, togetherness, fun.
 Forests - Trees, Leaves, Woods, Wild, Greenery, Ecosystem, Oxygen, Oxygenation, Natural, Scenic

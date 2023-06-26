@@ -43,54 +43,25 @@ def one_pass():
             try:
                 # Open the image
                 with Image.open(src_name) as img:
-                    # Calculate the new size
                     width, height = img.size
 
-                    if width > height:
-                        ratio = max_size / width
-                    else:
-                        ratio = max_size / height
-
-                    # print(f'ratio = {ratio}')
+                    # ratioMP is the ratio of the image in megapixels
+                    ratioMP = max_size / (width * height)
+                    # ratio is the square root of the ratioMP
+                    ratio = int(np.sqrt(ratioMP))
+                    # ratio is between 2 and 4
                     ratio = int(min(4, ratio))
-                    # for multiple passes, the best ratio is as follows:
-                    # 12+ -> 4 x 3
-                    if ratio >= 12:
-                        ratio = 4
-                    # 11 -> 3 x 3
-                    elif ratio == 11:
-                        ratio = 3
-                    # 10 -> 3 x 3
-                    elif ratio == 10:
-                        ratio = 3
-                    # 9 -> 3 x 3
-                    elif ratio == 9:
-                        ratio = 3
-                    # 8 -> 4 x 2
-                    elif ratio == 8:
-                        ratio = 4
-                    # 7 -> 3 x 2
-                    elif ratio == 7:
-                        ratio = 3
-                    # 6 -> 3 x 2
-                    elif ratio == 6:
-                        ratio = 3
-                    # 5 -> 4
-                    elif ratio == 5:
-                        ratio = 4
 
                     resized_filename = os.path.join(dst_dir, f"{basename}.jpg")
-                    if ratio > 1:
+
+                    if ratio >= 2:
+                        # print(f'ratio = {ratio}')
                         resized_filename = os.path.join(
                             dst_dir, f"{basename}x{ratio}.jpg")
 
-                    # print(f'ratio = {ratio}')
-                    if ratio >= 2:
-                        ratio = max(2, ratio)
-
                         # print(f'ratio = {ratio}')
                         print(
-                            f"scaling {ratio}x from {width}x{height} to {width*ratio}x{height*ratio}")
+                            f"scaling {ratio}x from {width}x{height} to {width*ratio}x{height*ratio} ie. {width*ratio*height*ratio/1_000_000} Mpixels")
 
                         command = f'./realesrgan-ncnn-vulkan -i "{src_name}" -o "{resized_filename}" -s {ratio}'
                         # print(f'command = {command}')
@@ -120,10 +91,9 @@ def one_pass():
 
     print(
         f'Total files: {total_files}, processed: {resized_files}, untouched: {untouched_files}')
-    return resized_files
 
 
-max_size = 7000
+max_size = 45_000_000
 src_dir = './1-From-Leonardo'
 dst_dir = './2-Scaled'
 
@@ -133,12 +103,12 @@ if __name__ == "__main__":
         description='Upscales images from one folder to another')
 
     # Add an optional argument with a default value
-    parser.add_argument('-in', '--inFolder', type=str, default='./1-From-Leonardo',
-                        help='input folder')
-    parser.add_argument('-out', '--outFolder', type=str, default='./2-Scaled',
-                        help='output folder')
-    parser.add_argument('-s', '--maxSize', type=int, default=7000,
-                        help='max picture size - on the long side')
+    parser.add_argument('-i', '--inFolder', type=str, default='./1-From-Leonardo',
+                        help='input folder, default: ./1-From-Leonardo')
+    parser.add_argument('-o', '--outFolder', type=str, default='./2-Scaled',
+                        help='output folder, default: ./2-Scaled')
+    parser.add_argument('-s', '--maxSize', type=int, default=45_000_000,
+                        help='max picture size in pixels (height x width), default: 45_000_000 (ie. 45 Mpixels)')
 
     # Parse the arguments
     args = parser.parse_args()

@@ -28,13 +28,11 @@ Renewable Energy - solar power, wind turbines, hydroelectricity, bioenergy, geot
 Family dinner - Food, table setting, togetherness, conversation, bonding, sharing, laughter, joy, happiness, home.
 Grandparents and grandchildren - Love, affection, care, playtime, storytelling, wisdom, memories, generations, family ties, laughter.
 Family vacation - Travel, adventure, fun, relaxation, exploration, experience, memories, love, bonding, togetherness.
------------------
 Couple in love - Romance, intimacy, affection, joy, companionship, trust, love, togetherness, happiness, relationship.
 New parents with baby - Love, care, family, joy, happiness, bonding, parenting, newborn, sleepless nights, cooing.
 Siblings - Love-hate, camaraderie, bonding, playtime, sharing, laughter, togetherness, siblings' rivalry, memories, friendship.
 Pet and family - Unconditional love, fun, bonding, responsibility, care, companionship, pet therapy, happiness, playtime, togetherness.
 Family gardening - Nature, plants, growth, responsibility, bonding, teamwork, fresh produce, togetherness, hobby, relaxation.
-----------------
 Multi-generational family - Family ties, bonding, love, diversity, care, tradition, togetherness, memories, support, joy.
 Family reading time - Literacy, love for books, relaxation, bonding, storytelling, imagination, education, family values, togetherness, fun.
 Forests - Trees, Leaves, Woods, Wild, Greenery, Ecosystem, Oxygen, Oxygenation, Natural, Scenic
@@ -47,16 +45,6 @@ Climate change- Melting, Carbon Footprint, Ways to reduce, Saving Resources, Eco
 National parks - Scenic, Explore, Adventure, Trails, Serene, Biodiversity, Camping, Hiking, Landscapes, Views
 Rural Landscapes - Countryside, Farm, Agriculture, Harvest, Rural Life, Rural paths, Serenity, Nature, Trees, Sunset
 Waterfalls - Cascades, Natural Beauty, Flowing, Streams, Adventure, River, Pools, Forests, Scenic, Mystical
-Running - marathon, jogger, shoes, race, fitness, exercise, outdoors, road, health, determination
-Yoga - mat, meditation, balance, relaxation, flexibility, wellness, namaste, stretch, pose, tranquility
-Cycling - road bike, cycling shorts, helmet, speed, endurance, pavement, exercise, outdoors, cycling shoes, health
-Swimming - pool, goggles, swim cap, freestyle, butterfly stroke, backstroke, breaststroke, swimmer, lanes, water
-Weightlifting - barbell, dumbbell, strength, fitness, gym, powerlifting, muscle, reps, plates, workout
-Soccer - cleats, ball, field, team, goal, kick, dribble, referee, net, sportsmanship
-Basketball - court, hoop, ball, jump, dribble, layup, three-pointer, net, team, defense
-Hiking - trail, trekking poles, backpack, mountain, nature, woods, rock, adventure, view, outdoors
-Tennis - racket, ball, court, serve, backhand, forehand, net, singles, doubles, match point
-Gymnastics - leotard, balance beam, floor, vault, gymnast, strength, flexibility, tumbling, competition, high bar
 Fireworks display - sparkle, explosion, night sky, celebration, colorful, holiday, party, festive, joy, entertainment
 Christmas decorations - ornaments, lights, tree, snow, candy canes, wreath, gift, festive, merry, jolly
 Thanksgiving feast - turkey, cranberry sauce, stuffing, pumpkin pie, gravy, yams, mashed potatoes, pecan pie, family, gathering
@@ -78,7 +66,6 @@ Alternative medicine and healing - Acupuncture, herbal medicine, yoga, meditatio
 Public health and preventive care - Vaccinations, disease prevention, health education, nutrition, hygiene, healthy living, community health, environmental health, safety, wellness 
 Medical education and training - Medical school, residency, continuing education, training programs, medical textbooks, professional development, simulation, skills assessment, healthcare administration, medical ethics.
 Delicious desserts - chocolate, cake, creamy, sweet, indulgent, fruit, tasty, whipped cream, icing, decadent
-Fruits and vegetables - colorful, fresh, organic, healthy, vitamins, nutrients, salad, juice, market, harvest
 Fast food - burger, fries, soda, pizza, fried chicken, fast, drive-thru, convenience, unhealthy, guilty pleasure
 Drinks and cocktails - martini, margarita, beer, wine, cocktail, ice, glass, refreshing, bar, happy hour
 BBQ and grill - steak, ribs, corn, burgers, hot dogs, grill marks, smoke, BBQ sauce, charcoal, summertime
@@ -115,7 +102,7 @@ National Parks – camping, scenic drives, hiking, wildlife, natural wonders, la
 Deserts – sand dunes, rock formations, cactus, rattlesnakes, sunsets, hiking, sandstorms, mirages, oases, road trips
 Caves – stalactites, stalagmites, underground lakes, glow worms, darkness, exploration, spelunking, cave diving, rock formations, subterranean rivers
 Wildlife – animals, birds, insects, marine life, safari, national parks, zoos, habitats, migration, ecosystems
-Flowers – gardens, floral arrangements, wildflowers, plant life, botany, bee pollination, nature photography, color palettes, floral backgrounds
+Flowers – gardens, floral arrangements, wildflowers, p lant life, botany, bee pollination, nature photography, color palettes, floral backgrounds
 Landscapes – sunsets, sunrises, mountains, rivers, beaches, forests, plains, natural wonders, city parks, countryside.
 Gym equipment - Dumbbell, treadmill, elliptical machine, resistance band, exercise ball, weight bench, kettlebell, spin bike, yoga mat, foam roller.
 Running - Jogging, marathon, road race, trail running, sneakers, finish line, warm-up, sprint, stretching, recovery.
@@ -133,6 +120,7 @@ Science Lab - test tubes, beakers, microscopes, lab coats, goggles, pipettes, Bu
 Digital Learning - laptops, tablets, smartphones, headphones, computer screens, keyboards, mouses, online courses, webinars, e-books
 Student Life - group projects, extracurricular activities, sports, clubs, events, friendships, communication, social media, diversity, inclusivity
 Creative Arts - paintbrushes, canvases, musical instruments, costumes, dance, theater, poetry, literature, photography, design
+-------------------------
 Teacher and Pupil - mentoring, guidance, encouragement, feedback, discussion, inspiration, role modeling, support, cooperation, respect
 Early Childhood Education - blocks, puzzles, toys, crafts, games, finger painting, coloring books, sandboxes, swings, educational play
 University Life - lectures, seminars, libraries, research, internships, academic writing, exams, career guidance, job fairs, campus landscapes

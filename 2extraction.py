@@ -69,7 +69,7 @@ def add_model(conn, modelId):
             # Insert the variant into the 'variants' table
             cursor.execute('''INSERT INTO models (id, description, name, modelWidth, modelHeight, status, type, updatedAt, createdAt, sdVersion, isPublic, instancePrompt)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (id,  description, name, modelWidth, modelHeight, status, type, updatedAt, createdAt, sdVersion, isPublic, instancePrompt))
-            print(f'added model to database: {name}')
+            # print(f'added model to database: {name}')
         except Exception as e:
             # traceback.print_exc()
             pass
@@ -87,7 +87,7 @@ def add_variant(conn, photo_id, variant_id, variant_type, url):
         # Insert the variant into the 'variants' table
         cursor.execute('''INSERT INTO variants (id, photo_id, variant_type, url)
                       VALUES (?, ?, ?, ?)''', (variant_id, photo_id, variant_type, url))
-        print(f'added variant {variant_type} to database: {variant_id}')
+        # print(f'added variant {variant_type} to database: {variant_id}')
     except Exception as e:
         # print(f'Exception 101 {e} error adding variant {variant_id}')
         pass
@@ -106,7 +106,7 @@ def add_photo(conn, photo_id, generation_id, url, nsfw, likeCount):
         sql = f'''INSERT OR REPLACE INTO photos (id, generation_id, url, nsfw, likeCount)
                       VALUES (?, ?, ?, ?, ?)'''
         cursor.execute(sql, (photo_id, generation_id, url, nsfw, likeCount))
-        print(f'added/updated photo to database: {photo_id}')
+        # print(f'added/updated photo to database: {photo_id}')
 
     except Exception as e:
         print(f'Exception {e} error adding photo {photo_id}')
@@ -124,7 +124,7 @@ def add_generation(conn, generation_id, prompt, modelId, negativePrompt, imageHe
         # Insert the generation into the 'generations' table
         cursor.execute('''INSERT INTO generations (id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps, seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt)
                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (generation_id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps, seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt))
-        print(f'added generation to database: {generation_id}')
+        # print(f'added generation to database: {generation_id}')
 
     except Exception as e:
         # traceback.print_exc()
@@ -285,7 +285,7 @@ def extract(num_days, all_leonardo_dir, skip=0):
             subject, created = get_generations_by_user_id(
                 userid, iteration, 1, bearer, conn, all_leonardo_dir)
             iteration += 1
-            print(f'-->subject({iteration}), created: {created} -> {subject}')
+            print(f'-->subject({iteration}), created: {created}')
         except Exception as e:
             print(f'done... {total_images} images downloaded')
             exit()

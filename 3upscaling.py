@@ -39,7 +39,7 @@ def one_pass():
             # collect title and keywords from the image
             iptc_title, iptc_keywords = get_iptc_data_from_image(src_name)
             basename, _ = os.path.splitext(filename)
-            print(f"{total_files} -> {filename}")
+
             try:
                 # Open the image
                 with Image.open(src_name) as img:
@@ -61,7 +61,7 @@ def one_pass():
 
                         # print(f'ratio = {ratio}')
                         print(
-                            f"scaling {ratio}x from {width}x{height} to {width*ratio}x{height*ratio} ie. {width*ratio*height*ratio/1_000_000} Mpixels")
+                            f"{total_files} -> scaling {ratio}x from {width}x{height} to {width*ratio}x{height*ratio} ie. {width*ratio*height*ratio/1_000_000} Mpixels")
 
                         command = f'./realesrgan-ncnn-vulkan -i "{src_name}" -o "{resized_filename}" -s {ratio}'
                         # print(f'command = {command}')

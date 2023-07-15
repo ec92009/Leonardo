@@ -1,4 +1,5 @@
-import argparse
+import argparse  # https://docs.python.org/3/library/argparse.html
+
 import os           # https://docs.python.org/3/library/os.html
 # pip install opencv-python
 import shutil   # https://docs.python.org/3/library/shutil.html
@@ -107,13 +108,15 @@ face_folder = './3-Faces'
 if __name__ == "__main__":
     # Create an argument parser
     parser = argparse.ArgumentParser(
-        description='Upscales images from one folder to another')
+        description='Upscales images from one folder to another, optionally separating images with faces')
 
     # Add an optional argument with a default value
     parser.add_argument('-i', '--inFolder', type=str, default='./1-From-Leonardo',
                         help='input folder, default: ./1-From-Leonardo')
     parser.add_argument('-o', '--outFolder', type=str, default='./2-Scaled',
                         help='output folder, default: ./2-Scaled')
+    parser.add_argument('-f', '--facesFolder', type=str, default='./3-Faces',
+                        help='output folder for images containing faces, default: ./3-Faces')
     parser.add_argument('-s', '--maxSize', type=int, default=45_000_000,
                         help='max picture size in pixels (height x width), default: 45_000_000 (ie. 45 Mpixels)')
 
@@ -123,6 +126,7 @@ if __name__ == "__main__":
     # Access the value
     src_dir = args.inFolder
     dst_dir = args.outFolder
+    face_folder = args.facesFolder
     max_size = args.maxSize
 
     print(f'scaling from {src_dir} to {dst_dir} with max size {max_size}')

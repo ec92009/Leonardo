@@ -17,7 +17,7 @@ from iptcinfo3 import IPTCInfo
 import sqlite3
 # !pip install argparse         # https://docs.python.org/3/library/argparse.html
 import argparse
-from EC_utils import create_db, add_iptc_metadata_to_image
+from EC_utils import create_db, add_iptc_metadata_to_image, detect_faces
 
 
 def add_model(conn, modelId):
@@ -152,7 +152,24 @@ def keywordsFromPrompt(prompt):
     return longWords
 
 
-def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo_dir):
+def order_variant(bearer, photoId):
+    import requests
+
+    url = "https://cloud.leonardo.ai/api/rest/v1/variations/upscale"
+
+    payload = {"id": photoId}
+    headers = {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "authorization": f"Bearer {bearer}"
+    }
+
+    response = requests.post(url, json=payload, headers=headers)
+
+    # print(response.text)
+
+
+def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo_dir, variants=False):
     global total_images
     url = f"https://cloud.leonardo.ai/api/rest/v1/generations/user/{userid}?offset={offset}&limit={limit}"
     headers = {
@@ -192,7 +209,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
 
     generated_images = var1[0]["generated_images"]
     # print(f'-->generated_images: {generated_images}')
-    for img_index in range(8):
+    for img_index in range(100):
         try:
             url = generated_images[img_index]["url"]
             photoId = generated_images[img_index]["id"]
@@ -201,23 +218,15 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
             likeCount = generated_images[img_index]["likeCount"]
 
             try:
+                add_photo(conn, photoId, generation_id,
+                          url, nsfw, likeCount)
                 # download image to folder 'from leonardo'
                 filename = f"{prompt[:60]}-{img_index}-{photoId}.jpg"
                 title = prompt
                 keywords = keywordsFromPrompt(prompt)
 
-                outfolder = f"{all_leonardo_dir}/{createdSplit}"
-                os.makedirs(outfolder, exist_ok=True)
-
-                outfile = f"{outfolder}/{filename}"
-                # if outfile does not already exist, download it
-                add_photo(conn, photoId, generation_id,
-                          url, nsfw, likeCount)
-                if not os.path.exists(outfile):
-                    urllib.request.urlretrieve(url, outfile)
-                    add_iptc_metadata_to_image(
-                        outfile, title, keywords)
-                    total_images += 1
+                download_photo(all_leonardo_dir, url,
+                               createdSplit, filename, title, keywords)
 
             except Exception as e:
                 traceback
@@ -231,25 +240,24 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
                     # print(f'-->var_type: {var_type}')
 
                     try:
+                        add_variant(conn, photoId, var_id, var_type, url)
                         filename = f"{prompt[:60]}-{img_index}-{var_type}_{var_id}.jpg"
                         title = prompt
                         keywords = keywordsFromPrompt(prompt)
-                        outfolder = f"{all_leonardo_dir}/{createdSplit}"
-                        os.makedirs(outfolder, exist_ok=True)
-                        outfile = f"{outfolder}/{filename}"
-                        # if outfile does not already exist, download it
-                        add_variant(conn, photoId, var_id, var_type, url)
-                        if not os.path.exists(outfile):
-                            urllib.request.urlretrieve(var_url, outfile)
-                            add_iptc_metadata_to_image(
-                                outfile, title, keywords)
-                            total_images += 1
+
+                        download_photo(all_leonardo_dir, var_url,
+                                       createdSplit, filename, title, keywords)
                     except Exception as e:
                         traceback
                         pass
 
                 except:
-                    pass
+                    if type_index == 0:
+                        if variants:
+                            print(
+                                f"-->No variants for image {img_index}, let's order one for {photoId}")
+                            order_variant(bearer, photoId)
+                    break
 
         except:
             break
@@ -257,7 +265,22 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
     return prompt, createdDate
 
 
-def extract(num_days, all_leonardo_dir, skip=0):
+def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keywords):
+    outfolder = f"{all_leonardo_dir}/{createdSplit}"
+    os.makedirs(outfolder, exist_ok=True)
+
+    outfile = f"{outfolder}/{filename}"
+    # if outfile does not already exist, download it
+    if not os.path.exists(outfile):
+        urllib.request.urlretrieve(url, outfile)
+        add_iptc_metadata_to_image(outfile, title, keywords)
+        total_images += 1
+    # faces = detect_faces(outfile)
+    # if faces:
+    #     print(f'-->found face(s) in : {outfile}')
+
+
+def extract(num_days, all_leonardo_dir, skip=0, variants=False):
     global total_images
     today = datetime.date.today()
     # convert today to a string in the format YYYY-MM-DD
@@ -283,9 +306,10 @@ def extract(num_days, all_leonardo_dir, skip=0):
     while created > first_day_str:
         try:
             subject, created = get_generations_by_user_id(
-                userid, iteration, 1, bearer, conn, all_leonardo_dir)
+                userid, iteration, 1, bearer, conn, all_leonardo_dir, variants)
             iteration += 1
-            print(f'-->subject({iteration}), created: {created}')
+            print(
+                f'-->created: {created}, subject({iteration}): {subject[:80]}...')
         except Exception as e:
             print(f'done... {total_images} images downloaded')
             exit()
@@ -327,11 +351,14 @@ if __name__ == "__main__":
     parser.add_argument('-k', '--key', type=str, default="",
                         help='Leonardo API key')
     # Add an optional argument with a default value
-    parser.add_argument('-d', '--days', type=int, default=2,
+    parser.add_argument('-d', '--days', type=int, default=1,
                         help='Number of days to download - 0 for unlimited')
     # Add an optional argument with a default value
     parser.add_argument('-s', '--skip', type=int, default=0,
                         help='Number of generations to skip')
+    # Add an optional argument to generate variants if not found
+    parser.add_argument('-v', '--variants', type=bool, default=True,
+                        help='Generate variants if not found')
     # Add an optional argument with a default value
     parser.add_argument('-l', '--leonardo_dir', type=str, default="/Users/ecohen/Documents/LR/_All Leonardo",
                         help='Where to download')
@@ -343,6 +370,7 @@ if __name__ == "__main__":
     num_days = args.days
     all_leonardo_dir = args.leonardo_dir
     skip = args.skip
+    variants = args.variants
     if args.key != "":
         bearer = args.key
         print(f'using bearer key: from command line')
@@ -354,4 +382,5 @@ if __name__ == "__main__":
         print(f'extracting all days to {all_leonardo_dir}')
     else:
         print(f'extracting {num_days} days to {all_leonardo_dir}')
-    extract(num_days, all_leonardo_dir, skip)
+
+    extract(num_days, all_leonardo_dir, skip, variants)

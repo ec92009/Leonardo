@@ -21,7 +21,7 @@ import traceback  # https://docs.python.org/3/library/traceback.html
 from iptcinfo3 import IPTCInfo
 from sklearn.cluster import KMeans
 from psd_tools import PSDImage      # https://psd-tools.readthedocs.io/en/latest/
-from EC_utils import add_iptc_metadata_to_image, get_iptc_data_from_image
+from EC_utils import add_iptc_metadata_to_image, get_iptc_data_from_image, detect_faces
 
 
 def one_pass():
@@ -31,6 +31,8 @@ def one_pass():
 
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
+    if not os.path.exists(face_folder):
+        os.makedirs(face_folder)
     # Loop through all files in the current folder in alphabetical order
     for filename in sorted(os.listdir(src_dir)):
         if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png') or filename.endswith('.webp'):
@@ -52,8 +54,6 @@ def one_pass():
                     # ratio is between 2 and 4
                     ratio = int(min(4, ratio))
 
-                    resized_filename = os.path.join(dst_dir, f"{basename}.jpg")
-
                     if ratio >= 2:
                         # print(f'ratio = {ratio}')
                         resized_filename = os.path.join(
@@ -74,6 +74,8 @@ def one_pass():
 
                     else:
                         # if the file is too large to resize, say so and take it out of the way
+                        resized_filename = os.path.join(
+                            dst_dir, f"{basename}.jpg")
                         print(
                             f'current size: {width}x{height} too big to resize')
                         untouched_files += 1
@@ -84,6 +86,10 @@ def one_pass():
                             # delete the file if it can't be moved
                             os.remove(src_name)
                             pass
+
+                    face_found = detect_faces(resized_filename)
+                    if face_found:
+                        shutil.move(resized_filename, face_folder)
 
             except:
                 traceback.print_exc()
@@ -96,6 +102,7 @@ def one_pass():
 max_size = 45_000_000
 src_dir = './1-From-Leonardo'
 dst_dir = './2-Scaled'
+face_folder = './3-Faces'
 
 if __name__ == "__main__":
     # Create an argument parser

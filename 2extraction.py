@@ -1,7 +1,7 @@
 # !pip install traceback        # https://docs.python.org/3/library/traceback.html
 import datetime
 import os
-import sys
+import subprocess
 import traceback
 # !pip install requests         # https://docs.python-requests.org/en/master/
 import requests
@@ -17,7 +17,76 @@ from iptcinfo3 import IPTCInfo
 import sqlite3
 # !pip install argparse         # https://docs.python.org/3/library/argparse.html
 import argparse
-from EC_utils import create_db, add_iptc_metadata_to_image, detect_faces
+
+import shutil
+from PIL import Image
+import numpy as np
+
+from EC_utils import detect_faces, add_iptc_metadata_to_image, get_iptc_data_from_image, create_db
+
+MAX_SIZE = 45_000_000
+
+
+def upscale_one_picture(src_path):
+    basename = os.path.basename(src_path)
+    src_dir = os.path.dirname(src_path)
+    dst_dir = f'{src_dir}/Scaled'
+    face_dir = f'{src_dir}/Faces'
+    if not os.path.exists(dst_dir):
+        os.makedirs(dst_dir)
+    if not os.path.exists(face_dir):
+        os.makedirs(face_dir)
+    # collect title and keywords from the image
+    iptc_title, iptc_keywords = get_iptc_data_from_image(src_path)
+
+    try:
+        # Open the image
+        with Image.open(src_path) as img:
+            width, height = img.size
+            ratioMP = MAX_SIZE / (width * height)
+            ratio = int(np.sqrt(ratioMP))
+            ratio = int(min(4, ratio))
+
+            if ratio >= 2:
+                # print(f'ratio = {ratio}')
+                dest_path = os.path.join(dst_dir, f"{basename}x{ratio}.jpg")
+                face_path = os.path.join(face_dir, f"{basename}x{ratio}.jpg")
+
+                # if the destination file does not exists, skip it
+                if not os.path.exists(dest_path) and not os.path.exists(face_path):
+                    print(
+                        f"scaling {ratio}x from {width}x{height} to {width*ratio}x{height*ratio} ie. {width*ratio*height*ratio/1_000_000} Mpixels")
+                    command = f'./realesrgan-ncnn-vulkan -i "{src_path}" -o "{dest_path}" -s {ratio}'
+                    _ = subprocess.run(command, shell=True,
+                                       capture_output=True, text=True)
+                    add_iptc_metadata_to_image(
+                        dest_path, iptc_title, iptc_keywords)
+                    face_found = detect_faces(dest_path)
+                else:
+                    print(f'Upscaled version already exists, skipping')
+                    if os.path.exists(dest_path):
+                        face_found = detect_faces(dest_path)
+                    else:
+                        face_found = detect_faces(face_path)
+
+            else:
+                # if the file is too large to resize, say so and take it out of the way
+                print(
+                    f'current size: {width}x{height} too big to resize')
+                dest_path = os.path.join(
+                    dst_dir, f"{basename}.jpg")
+
+                shutil.copyfile(src_path, dest_path)
+                face_found = detect_faces(dest_path)
+
+            if face_found:
+                face_path = os.path.join(face_dir, os.path.basename(dest_path))
+                if os.path.exists(dest_path):
+                    os.replace(dest_path, face_path)
+
+    except:
+        traceback.print_exc()
+        exit()
 
 
 def add_model(conn, modelId):
@@ -275,9 +344,9 @@ def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keyword
         urllib.request.urlretrieve(url, outfile)
         add_iptc_metadata_to_image(outfile, title, keywords)
         total_images += 1
-    # faces = detect_faces(outfile)
-    # if faces:
-    #     print(f'-->found face(s) in : {outfile}')
+
+    if upscales:
+        upscale_one_picture(outfile)
 
 
 def extract(num_days, all_leonardo_dir, skip=0, variants=False):
@@ -358,7 +427,10 @@ if __name__ == "__main__":
                         help='Number of generations to skip')
     # Add an optional argument to generate variants if not found
     parser.add_argument('-v', '--variants', type=bool, default=True,
-                        help='Generate variants if not found')
+                        help='Generate variants if not found (default: True))')
+    # Add an optional argument to upscale images
+    parser.add_argument('-u', '--upscale', type=bool, default=True,
+                        help='Upscale pictures upon download, default: True')
     # Add an optional argument with a default value
     parser.add_argument('-l', '--leonardo_dir', type=str, default="/Users/ecohen/Documents/LR/_All Leonardo",
                         help='Where to download')
@@ -371,6 +443,8 @@ if __name__ == "__main__":
     all_leonardo_dir = args.leonardo_dir
     skip = args.skip
     variants = args.variants
+    upscales = args.upscale
+
     if args.key != "":
         bearer = args.key
         print(f'using bearer key: from command line')

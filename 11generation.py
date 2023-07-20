@@ -127,7 +127,7 @@ def main():
         modelId, modelName, modelWidth, modelHeight, sdVersion = row
 
         generate_one_pic(prompt, modelId, modelName, sdVersion,
-                         modelWidth, modelHeight)
+                         modelWidth * 2, modelHeight * 2)
 
         # Fetch the next row
         row = cursor.fetchone()

@@ -51,8 +51,6 @@ def upscale_one_picture(src_path, pic_Id):
     face_dir = f'{src_dir}/Faces'
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
-    if not os.path.exists(face_dir):
-        os.makedirs(face_dir)
     # collect title and keywords from the image
     iptc_title, iptc_keywords = get_iptc_data_from_image(src_path)
 
@@ -60,10 +58,10 @@ def upscale_one_picture(src_path, pic_Id):
 
     # if a file exists with pic_Id in the name
     if file_with_string_exists(dst_dir, pic_Id):
-        print(f'Upscaled version already exists in {dst_dir}, skipping')
+        # print(f'Upscaled version already exists in {dst_dir}, skipping')
         return
     if file_with_string_exists(face_dir, pic_Id):
-        print(f'Upscaled version already exists in {face_dir}, skipping')
+        # print(f'Upscaled version already exists in {face_dir}, skipping')
         return
 
     # Open the image
@@ -107,6 +105,8 @@ def upscale_one_picture(src_path, pic_Id):
             face_found = detect_faces(dest_path) if faces else False
 
         if face_found:
+            if not os.path.exists(face_dir):
+                os.makedirs(face_dir)
             face_path = os.path.join(face_dir, os.path.basename(dest_path))
             if os.path.exists(dest_path):
                 os.replace(dest_path, face_path)
@@ -145,7 +145,7 @@ def add_model(conn, modelId):
             var = var0["custom_models_by_pk"]
             # print(f'---->var: {var}')
         except Exception as e:
-            # traceback.print_exc()
+            traceback.print_exc()
             return
 
         id = var["id"]
@@ -162,13 +162,15 @@ def add_model(conn, modelId):
         instancePrompt = var["instancePrompt"]
 
         try:
+            sql = f'''INSERT INTO models (id, description, name, modelWidth, modelHeight, status, type, updatedAt, createdAt, sdVersion, isPublic, instancePrompt)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
             # Insert the variant into the 'variants' table
-            cursor.execute('''INSERT INTO models (id, description, name, modelWidth, modelHeight, status, type, updatedAt, createdAt, sdVersion, isPublic, instancePrompt)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (id,  description, name, modelWidth, modelHeight, status, type, updatedAt, createdAt, sdVersion, isPublic, instancePrompt))
+            cursor.execute(sql, (id,  description, name, modelWidth, modelHeight,
+                           status, type, updatedAt, createdAt, sdVersion, isPublic, instancePrompt))
             # print(f'added model to database: {name}')
         except Exception as e:
-            # traceback.print_exc()
-            pass
+            traceback.print_exc()
+            exit()
 
     # Commit the changes and close the connection
     conn.commit()
@@ -181,12 +183,13 @@ def add_variant(conn, photo_id, variant_id, variant_type, url):
 
     try:
         # Insert the variant into the 'variants' table
-        cursor.execute('''INSERT INTO variants (id, photo_id, variant_type, url)
-                      VALUES (?, ?, ?, ?)''', (variant_id, photo_id, variant_type, url))
+        sql = f'''INSERT OR REPLACE INTO variants (id, photo_id, variant_type, url)
+                      VALUES (?, ?, ?, ?)'''
+        cursor.execute(sql, (variant_id, photo_id, variant_type, url))
         # print(f'added variant {variant_type} to database: {variant_id}')
     except Exception as e:
-        # print(f'Exception 101 {e} error adding variant {variant_id}')
-        pass
+        traceback.print_exc()
+        exit()
 
     # Commit the changes and close the connection
     conn.commit()
@@ -205,8 +208,8 @@ def add_photo(conn, photo_id, generation_id, url, nsfw, likeCount):
         # print(f'added/updated photo to database: {photo_id}')
 
     except Exception as e:
-        print(f'Exception {e} error adding photo {photo_id}')
-        pass
+        traceback.print_exc()
+        exit()
 
     # Commit the changes and close the connection
     conn.commit()
@@ -218,14 +221,15 @@ def add_generation(conn, generation_id, prompt, modelId, negativePrompt, imageHe
 
     try:
         # Insert the generation into the 'generations' table
-        cursor.execute('''INSERT INTO generations (id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps, seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (generation_id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps, seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt))
+        sql = f'''INSERT OR REPLACE INTO generations (id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps, seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+        cursor.execute(sql, (generation_id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps,
+                       seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt))
         # print(f'added generation to database: {generation_id}')
 
     except Exception as e:
-        # traceback.print_exc()
-        # print(f'Exception 138 {e} error adding generation {generation_id}')
-        pass
+        traceback.print_exc()
+        exit()
 
     # Commit the changes
     conn.commit()
@@ -320,14 +324,16 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
         keywords = keywordsFromPrompt(prompt)
 
         download_photo(all_leonardo_dir, url,
-                       createdSplit, filename, title, keywords, photoId)
+                       createdSplit, filename, title, keywords, photoId, 'ORIGINAL')
 
+        # VARIANTS (UPSCALES AND CROPS)
         if len(variant) == 0:
             if variants:
                 print(
                     f"-->No variants for image {img_index}, let's order one for {photoId}")
                 order_variant(bearer, photoId)
 
+        # DOWNLOAD VARIANTS
         for type_index in range(len(variant)):
             var_url = variant[type_index]["url"]
             var_id = variant[type_index]["id"]
@@ -340,13 +346,14 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
             keywords = keywordsFromPrompt(prompt)
 
             download_photo(all_leonardo_dir, var_url,
-                           createdSplit, filename, title, keywords, var_id)
+                           createdSplit, filename, title, keywords, var_id, var_type)
 
     return prompt, createdDate
 
 
-def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keywords, pic_Id):
-    outfolder = f"{all_leonardo_dir}/{createdSplit}"
+def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keywords, pic_Id, variant_type):
+    global total_images
+    outfolder = f"{all_leonardo_dir}/{createdSplit}/{variant_type}"
     os.makedirs(outfolder, exist_ok=True)
 
     outfile = f"{outfolder}/{filename}"
@@ -384,15 +391,13 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
     conn = sqlite3.connect(db_path)
 
     while created > first_day_str:
-        try:
-            subject, created = get_generations_by_user_id(
-                userid, iteration, 1, bearer, conn, all_leonardo_dir, variants)
-            iteration += 1
-            print(
-                f'-->created: {created}, subject({iteration}): {subject[:80]}...')
-        except Exception as e:
-            print(f'done... {total_images} images downloaded')
-            exit()
+        subject, created = get_generations_by_user_id(
+            userid, iteration, 1, bearer, conn, all_leonardo_dir, variants)
+        iteration += 1
+        print(
+            f'-->created: {created}, subject({iteration}): {subject[:80]}...')
+
+    print(f'done... {total_images} images downloaded')
 
     conn.close()
 
@@ -427,25 +432,25 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='Download the Leonardo images from the last N days')
 
-    # Add an optional argument with a default value
+    # Add an optional argument for the Leonardo API Key
     parser.add_argument('-k', '--key', type=str, default="",
                         help='Leonardo API key')
-    # Add an optional argument with a default value
-    parser.add_argument('-d', '--days', type=int, default=9,
+    # Add an optional argument for how many days to download
+    parser.add_argument('-d', '--days', type=int, default=4,
                         help='Number of days to download - 0 for unlimited')
-    # Add an optional argument with a default value
+    # Add an optional argument to skip the most recent generations
     parser.add_argument('-s', '--skip', type=int, default=0,
                         help='Number of generations to skip')
     # Add an optional argument to generate variants if not found
     parser.add_argument('-v', '--variants', type=bool, default=True,
                         help='Generate variants if not found (default: True))')
     # Add an optional argument to upscale images
-    parser.add_argument('-u', '--upscale', type=bool, default=True,
+    parser.add_argument('-u', '--upscale', type=bool, default=False,
                         help='Upscale pictures upon download, default: True')
-    # Add an optional argument to upscale images
+    # Add an optional argument to detect faces
     parser.add_argument('-f', '--faces', type=bool, default=False,
                         help='Detect if scaled pictures include a face, and sort them in a different folder, default: False')
-    # Add an optional argument with a default value
+    # Add an optional argument for the download folder
     parser.add_argument('-l', '--leonardo_dir', type=str, default="/Users/ecohen/Documents/LR/_All Leonardo",
                         help='Where to download')
 

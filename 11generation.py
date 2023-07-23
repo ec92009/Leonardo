@@ -15,42 +15,42 @@ import sqlite3
 #     }
 
 
-def getSingleGeneration(genId):
-    url = f"https://cloud.leonardo.ai/api/rest/v1/generations/{genId}"
+# def getSingleGeneration(genId):
+#     url = f"https://cloud.leonardo.ai/api/rest/v1/generations/{genId}"
 
-    headers = {
-        "accept": "application/json",
-        "authorization": f"Bearer {bearer}"
-    }
+#     headers = {
+#         "accept": "application/json",
+#         "authorization": f"Bearer {bearer}"
+#     }
 
-    attempts = 10
-    while attempts > 0:
-        response = requests.get(url, headers=headers)
-        # print(f'-->response.text: {response.text}')
-        generations_by_pk = json.loads(response.text)["generations_by_pk"]
-        # print(f'--> generations_by_pk: {generations_by_pk}' )
-        generations = generations_by_pk["generated_images"]
-        # print(f'--> generations: {generations}')
-        if len(generations) == 0:
-            print(".", end="")
-            time.sleep(1)
-            attempts -= 1
-            continue
-        else:
-            #     for generation in generations:
-            #         print(f'--> generation: {generation}')
-            #         id = generation["id"]
-            #         print(f'--> id: {id}')
-            #         order_variant(id)
-            print("")
-            return
+#     attempts = 10
+#     while attempts > 0:
+#         response = requests.get(url, headers=headers)
+#         # print(f'-->response.text: {response.text}')
+#         generations_by_pk = json.loads(response.text)["generations_by_pk"]
+#         # print(f'--> generations_by_pk: {generations_by_pk}' )
+#         generations = generations_by_pk["generated_images"]
+#         # print(f'--> generations: {generations}')
+#         if len(generations) == 0:
+#             print(".", end="")
+#             time.sleep(1)
+#             attempts -= 1
+#             continue
+#         else:
+#             #     for generation in generations:
+#             #         print(f'--> generation: {generation}')
+#             #         id = generation["id"]
+#             #         print(f'--> id: {id}')
+#             #         order_variant(id)
+#             print("")
+#             return
 
-    print('failed after 10 attempts.')
-    return
+#     print('failed after 10 attempts.')
+#     return
 
 
 def generate_one_pic(prompt, modelId, modelName, sd_version, width, height):
-    print(f"Generating image for model {modelName}")
+    print(f"Generating image for model {modelName} -> ", end="")
 
     url = "https://cloud.leonardo.ai/api/rest/v1/generations"
 
@@ -75,38 +75,33 @@ def generate_one_pic(prompt, modelId, modelName, sd_version, width, height):
         "authorization": f"Bearer {bearer}"
     }
 
-    _ = requests.post(url, json=payload, headers=headers)
-    # genId = json.loads(response.text)[
-    #     "sdGenerationJob"]["generationId"]
-    # getSingleGeneration(genId)
+    attempts_left = 20
+    while attempts_left > 0:
 
-    # attempts = 10
+        response = requests.post(url, json=payload, headers=headers)
+        print(f'{response.status_code}', end="")
+        # check status code
+        if response.status_code != 200:
+            # sleep 1 second
+            time.sleep(5)
+            print(f'.Error: {json.loads(response.content)["error"]}')
+            attempts_left -= 1
+            continue
+        else:
+            # _ = json.loads(response.text)[
+            #     "sdGenerationJob"]["generationId"]
+            # getSingleGeneration(genId)
+            print(".OK")
+            return
 
-    # while attempts > 0:
-    #     response = requests.post(url, json=payload, headers=headers)
-
-    #     # print(f'--> response.text: {response.text}')
-    #     try:
-    #         genId = json.loads(response.text)[
-    #             "sdGenerationJob"]["generationId"]
-    #         getSingleGeneration(genId)
-    #         return
-
-    #     except Exception as e:
-    #         attempts -= 1
-    #         if attempts > 0:
-    #             print(
-    #                 f"Exception: {e} Sleeping 1 second, attempts left: {attempts}...")
-    #             time.sleep(1)
-    #         else:
-    #             print('Failed after 10 attempts.')
-    #             exit()
+    if attempts_left == 0:
+        print("Failed after 20 attempts.")
+        return
 
 
 def main():
 
-    prompt = "Tranquil countryside with rolling hills -- countryside, rolling hills, nature, rural, serene, peaceful, picturesque, beauty, landscape, scenic, tranquil, farm, green, outdoors"
-
+    prompt = "Lush vineyard with rows of grapevines -- vineyard, grapevines, wine, grapes, rural, countryside, scenic, agriculture, winemaking, beauty, outdoors, harvest, serenity"
     conn = sqlite3.connect(
         "/Users/ecohen/Documents/LR/_All Leonardo/database.sqlite3")
 
@@ -115,7 +110,7 @@ def main():
 
     # Execute the SQL query
     cursor.execute(
-        "SELECT id, name, modelWidth, modelHeight, sdVersion FROM models")
+        "SELECT id, name, modelWidth, modelHeight, sdVersion FROM models ORDER BY RANDOM() LIMIT 10")
 
     # Fetch one row at a time
     row = cursor.fetchone()
@@ -127,7 +122,7 @@ def main():
         modelId, modelName, modelWidth, modelHeight, sdVersion = row
 
         generate_one_pic(prompt, modelId, modelName, sdVersion,
-                         modelWidth * 2, modelHeight * 2)
+                         modelWidth, modelHeight)
 
         # Fetch the next row
         row = cursor.fetchone()

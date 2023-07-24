@@ -1,10 +1,10 @@
-import os
-import traceback
+import os       # pip install os-sys
+import traceback    # pip install traceback
 from iptcinfo3 import IPTCInfo
-from sklearn.cluster import KMeans
-from psd_tools import PSDImage
-import sqlite3
-import cv2
+from sklearn.cluster import KMeans  # pip install scikit-learn
+from psd_tools import PSDImage  # pip install psd-tools
+import sqlite3  # pip install sqlite3
+import cv2  # pip install opencv-python
 
 
 def detect_faces(image_path):

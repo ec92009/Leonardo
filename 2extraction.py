@@ -19,12 +19,35 @@ import sqlite3
 import argparse
 
 import shutil
-from PIL import Image
-import numpy as np
+from PIL import Image   # pip install Pillow
+import numpy as np  # pip install numpy
+
+# import webbrowser  # pip install webbrowser
+
 
 from EC_utils import detect_faces, add_iptc_metadata_to_image, get_iptc_data_from_image, create_db
 
 import os
+
+
+def display_image(image_path, duration=1):
+    try:
+        # Use AppleScript to open the image with Preview and close after the specified duration
+        applescript = f'''
+        tell application "Preview"
+            activate
+            open "{image_path}"
+        end tell
+        delay {duration}
+        tell application "Preview"
+            close every window
+        end tell
+        '''
+
+        # Execute the AppleScript using osascript
+        subprocess.run(['osascript', '-e', applescript], check=True)
+    except Exception as e:
+        print(f"Error occurred: {e}")
 
 
 def file_with_string_exists(folder_path, search_string):
@@ -45,12 +68,16 @@ MAX_SIZE = 45_000_000
 
 
 def upscale_one_picture(src_path, pic_Id):
+    # display_image(src_path)
+
     basename = os.path.basename(src_path)
     src_dir = os.path.dirname(src_path)
     dst_dir = f'{src_dir}/Scaled'
     face_dir = f'{src_dir}/Faces'
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
+    if not os.path.exists(face_dir):
+        os.makedirs(face_dir)
     # collect title and keywords from the image
     iptc_title, iptc_keywords = get_iptc_data_from_image(src_path)
 
@@ -105,8 +132,6 @@ def upscale_one_picture(src_path, pic_Id):
             face_found = detect_faces(dest_path) if faces else False
 
         if face_found:
-            if not os.path.exists(face_dir):
-                os.makedirs(face_dir)
             face_path = os.path.join(face_dir, os.path.basename(dest_path))
             if os.path.exists(dest_path):
                 os.replace(dest_path, face_path)
@@ -276,10 +301,44 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
         "accept": "application/json",
         "authorization": f"Bearer {bearer}"
     }
-    response = requests.get(url, headers=headers)
+
+    attempts = 10
+    while attempts > 0:
+        try:
+            response = requests.get(url, headers=headers, timeout=2)
+        except requests.exceptions.Timeout:
+            attempts -= 1
+            print(f'timeout - attempts left: {attempts} / 10')
+            if attempts == 0:
+                print(f'Failed after 10 attempts')
+                return "", datetime.date.today().strftime("%Y-%m-%d")
+            else:
+                continue
+
+        if response.status_code != 200:
+            attempts -= 1
+            print(
+                f'status code: {response.status_code} - attempts left: {attempts} / 10')
+            # print(f'Error: {json.loads(response.content)["error"]}')
+            # traceback.print_exc()
+            if attempts == 0:
+                print(f'Failed after 10 attempts')
+                return "", datetime.date.today().strftime("%Y-%m-%d")
+        else:
+            break
+
     # print(f'---->response.text: {response.text}')
-    var1 = json.loads(response.text)["generations"]
+    try:
+        var1 = json.loads(response.text)["generations"]
+    except Exception as e:
+        print(f'Error: {json.loads(response.content)["error"]}')
+        print(f'response.text: {response.text}')
+        traceback.print_exc()
+        return "", datetime.date.today().strftime("%Y-%m-%d")
     # if var1 is empty, let the exception be raised
+
+    if len(var1) == 0:
+        return "...", datetime.date.today().strftime("%Y-%m-%d")
 
     # print(f'---->var1: {var1}')
     prompt = var1[0]["prompt"]
@@ -323,8 +382,9 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
         title = prompt
         keywords = keywordsFromPrompt(prompt)
 
-        download_photo(all_leonardo_dir, url,
-                       createdSplit, filename, title, keywords, photoId, 'ORIGINAL')
+        if originals:
+            download_photo(all_leonardo_dir, url,
+                           createdSplit, filename, title, keywords, photoId, 'ORIGINAL')
 
         # VARIANTS (UPSCALES AND CROPS)
         if len(variant) == 0:
@@ -336,6 +396,8 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
         # DOWNLOAD VARIANTS
         for type_index in range(len(variant)):
             var_url = variant[type_index]["url"]
+            if var_url == None:
+                break
             var_id = variant[type_index]["id"]
             var_type = variant[type_index]["transformType"]
             # print(f'-->var_type: {var_type}')
@@ -351,6 +413,23 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
     return prompt, createdDate
 
 
+def download_file(url, save_path):
+    # Send an HTTP GET request to the URL
+    response = requests.get(url)
+
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Open the file in binary write mode and save the content
+        with open(save_path, 'wb') as f:
+            f.write(response.content)
+        # print(f"File saved successfully to: {save_path}")
+        # display_image(save_path)
+
+    else:
+        print(
+            f"Failed to download the file. Status code: {response.status_code}")
+
+
 def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keywords, pic_Id, variant_type):
     global total_images
     outfolder = f"{all_leonardo_dir}/{createdSplit}/{variant_type}"
@@ -359,9 +438,13 @@ def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keyword
     outfile = f"{outfolder}/{filename}"
     # if outfile does not already exist, download it
     if not os.path.exists(outfile):
-        urllib.request.urlretrieve(url, outfile)
-        add_iptc_metadata_to_image(outfile, title, keywords)
-        total_images += 1
+        try:
+            download_file(url, outfile)
+            add_iptc_metadata_to_image(outfile, title, keywords)
+            total_images += 1
+        except Exception as e:
+            print(f'Error downloading: {e}')
+            pass
 
     if upscales:
         upscale_one_picture(outfile, pic_Id)
@@ -390,12 +473,16 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
 
     conn = sqlite3.connect(db_path)
 
-    while created > first_day_str:
-        subject, created = get_generations_by_user_id(
-            userid, iteration, 1, bearer, conn, all_leonardo_dir, variants)
-        iteration += 1
-        print(
-            f'-->created: {created}, subject({iteration}): {subject[:80]}...')
+    while created > first_day_str and subject != "...":
+        try:
+            subject, created = get_generations_by_user_id(
+                userid, iteration, 1, bearer, conn, all_leonardo_dir, variants)
+            iteration += 1
+            print(
+                f'-->created: {created}, subject({iteration}): {subject[:80]}...')
+        except:
+            # traceback.print_exc()
+            pass
 
     print(f'done... {total_images} images downloaded')
 
@@ -436,16 +523,19 @@ if __name__ == "__main__":
     parser.add_argument('-k', '--key', type=str, default="",
                         help='Leonardo API key')
     # Add an optional argument for how many days to download
-    parser.add_argument('-d', '--days', type=int, default=4,
+    parser.add_argument('-d', '--days', type=int, default=0,
                         help='Number of days to download - 0 for unlimited')
     # Add an optional argument to skip the most recent generations
-    parser.add_argument('-s', '--skip', type=int, default=0,
+    parser.add_argument('-s', '--skip', type=int, default=995,
                         help='Number of generations to skip')
+    # Add an optional argument to download original pictures
+    parser.add_argument('-o', '--originals', type=bool, default=False,
+                        help='Download originals (default: False))')
     # Add an optional argument to generate variants if not found
-    parser.add_argument('-v', '--variants', type=bool, default=True,
+    parser.add_argument('-v', '--variants', type=bool, default=False,
                         help='Generate variants if not found (default: True))')
     # Add an optional argument to upscale images
-    parser.add_argument('-u', '--upscale', type=bool, default=False,
+    parser.add_argument('-u', '--upscale', type=bool, default=True,
                         help='Upscale pictures upon download, default: True')
     # Add an optional argument to detect faces
     parser.add_argument('-f', '--faces', type=bool, default=False,
@@ -464,6 +554,7 @@ if __name__ == "__main__":
     variants = args.variants
     upscales = args.upscale
     faces = args.faces
+    originals = args.originals
 
     if args.key != "":
         bearer = args.key

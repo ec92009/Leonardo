@@ -526,13 +526,13 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--days', type=int, default=0,
                         help='Number of days to download - 0 for unlimited')
     # Add an optional argument to skip the most recent generations
-    parser.add_argument('-s', '--skip', type=int, default=995,
+    parser.add_argument('-s', '--skip', type=int, default=0,
                         help='Number of generations to skip')
     # Add an optional argument to download original pictures
     parser.add_argument('-o', '--originals', type=bool, default=False,
                         help='Download originals (default: False))')
     # Add an optional argument to generate variants if not found
-    parser.add_argument('-v', '--variants', type=bool, default=False,
+    parser.add_argument('-v', '--variants', type=bool, default=True,
                         help='Generate variants if not found (default: True))')
     # Add an optional argument to upscale images
     parser.add_argument('-u', '--upscale', type=bool, default=True,

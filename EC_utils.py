@@ -125,21 +125,21 @@ def get_iptc_data_from_image(image_path):
     # Open the image file
     info = IPTCInfo(image_path)  # https://pypi.org/project/iptcinfo3/
     # Get the title
-    title = info['object name']
+    title = info['object name'].decode('utf-8')
     # Get the keywords
-    keywords = info['keywords']
+    keywords = info['keywords'].decode('utf-8')
     return title, keywords
 
 
-def test_detect_faces():
-    # go through all the files in the "/Users/ecohen/Documents/LR/_All Leonardo/2023/06/02" folder
-    src_dir = './1-From-Leonardo'
-    for filename in sorted(os.listdir(src_dir)):
-        faces = detect_faces(os.path.join(src_dir, filename))
-        # print(f'-->faces.shape: {faces.shape}')
-        # print(f'-->faces: {faces}')
-        print(f'{filename} -> {faces}')
+# def test_detect_faces():
+#     # go through all the files in the "/Users/ecohen/Documents/LR/_All Leonardo/2023/06/02" folder
+#     src_dir = './1-From-Leonardo'
+#     for filename in sorted(os.listdir(src_dir)):
+#         faces = detect_faces(os.path.join(src_dir, filename))
+#         # print(f'-->faces.shape: {faces.shape}')
+#         # print(f'-->faces: {faces}')
+#         print(f'{filename} -> {faces}')
 
 
-if __name__ == "__main__":
-    test_detect_faces()
+# if __name__ == "__main__":
+#     test_detect_faces()

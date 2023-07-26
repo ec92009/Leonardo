@@ -1,6 +1,6 @@
 import os       # pip install os-sys
 import traceback    # pip install traceback
-from iptcinfo3 import IPTCInfo
+# from EC_iptcinfo3 import IPTCInfo
 from sklearn.cluster import KMeans  # pip install scikit-learn
 from psd_tools import PSDImage  # pip install psd-tools
 import sqlite3  # pip install sqlite3
@@ -98,37 +98,6 @@ def create_db(db_path):
     # Commit the changes and close the connection
     conn.commit()
     conn.close()
-
-
-def add_iptc_metadata_to_image(image_path, title, keywords):
-    # Open the image file    # https://pypi.org/project/iptcinfo3/
-    try:
-        info = IPTCInfo(image_path, force=True)
-        # Set the title
-        info['object name'] = title[:120]
-        # Set the keywords
-        info['keywords'] = keywords
-        # Save the changes
-        info.save()
-        tildaPath = f'{image_path}~'
-        # delete the backup file
-        if os.path.exists(tildaPath):
-            os.remove(tildaPath)
-
-    except:
-        print(f"Error writing IPTC data to {image_path}")
-        traceback.print_exc()
-        pass
-
-
-def get_iptc_data_from_image(image_path):
-    # Open the image file
-    info = IPTCInfo(image_path)  # https://pypi.org/project/iptcinfo3/
-    # Get the title
-    title = info['object name'].decode('utf-8')
-    # Get the keywords
-    keywords = info['keywords'].decode('utf-8')
-    return title, keywords
 
 
 # def test_detect_faces():

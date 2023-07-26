@@ -12,7 +12,7 @@ from dotenv import dotenv_values
 # !pip install urllib           # https://docs.python.org/3/library/urllib.html
 import urllib.request
 # !pip install iptcinfo3        # https://pypi.org/project/iptcinfo3/
-from iptcinfo3 import IPTCInfo
+from EC_iptcinfo3 import IPTCInfo
 # !pip install sqlite3          # https://docs.python.org/3/library/sqlite3.html
 import sqlite3
 # !pip install argparse         # https://docs.python.org/3/library/argparse.html
@@ -25,29 +25,53 @@ import numpy as np  # pip install numpy
 # import webbrowser  # pip install webbrowser
 
 
-from EC_utils import detect_faces, add_iptc_metadata_to_image, get_iptc_data_from_image, create_db
+from EC_utils import detect_faces, create_db
 
-import os
+import matplotlib.pyplot as plt  # pip install matplotlib
+
+import matplotlib.image as mpimg
 
 
-def display_image(image_path, duration=1):
+def add_iptc_metadata_to_image(image_path, title, keywords):
+    # Open the image file    # https://pypi.org/project/iptcinfo3/
     try:
-        # Use AppleScript to open the image with Preview and close after the specified duration
-        applescript = f'''
-        tell application "Preview"
-            activate
-            open "{image_path}"
-        end tell
-        delay {duration}
-        tell application "Preview"
-            close every window
-        end tell
-        '''
+        info = IPTCInfo(image_path, force=True)
+        # Set the title
+        info['object name'] = title[:120]
+        # Set the keywords
+        info['keywords'] = keywords
+        # Save the changes
+        info.save()
+        tildaPath = f'{image_path}~'
+        # delete the backup file
+        if os.path.exists(tildaPath):
+            os.remove(tildaPath)
 
-        # Execute the AppleScript using osascript
-        subprocess.run(['osascript', '-e', applescript], check=True)
-    except Exception as e:
-        print(f"Error occurred: {e}")
+    except:
+        print(f"Error writing IPTC data to {image_path}")
+        traceback.print_exc()
+        pass
+
+
+def get_iptc_data_from_image(image_path):
+    # Open the image file
+    # https://pypi.org/project/iptcinfo3/
+    info = IPTCInfo(image_path, inp_charset='utf-8', out_charset='utf-8')
+    # Get the title
+    title = info['object name']
+    # Get the keywords
+    keywords = info['keywords']
+    return title, keywords
+
+
+def display_image(image_path):
+    # Read the image using matplotlib's imread function
+    img = mpimg.imread(image_path)
+
+    # Display the image using imshow
+    plt.imshow(img)
+    plt.axis('off')  # Turn off axis ticks and labels for a cleaner display
+    plt.show()
 
 
 def file_with_string_exists(folder_path, search_string):
@@ -70,6 +94,7 @@ MAX_SIZE = 45_000_000
 def upscale_one_picture(src_path, pic_Id):
     # display_image(src_path)
 
+    # print(f'Upscaling {src_path}')
     basename = os.path.basename(src_path)
     src_dir = os.path.dirname(src_path)
     dst_dir = f'{src_dir}/Scaled'
@@ -315,7 +340,9 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
             else:
                 continue
 
-        if response.status_code != 200:
+        if response.status_code == 200:
+            break
+        else:
             attempts -= 1
             print(
                 f'status code: {response.status_code} - attempts left: {attempts} / 10')
@@ -324,8 +351,6 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
             if attempts == 0:
                 print(f'Failed after 10 attempts')
                 return "", datetime.date.today().strftime("%Y-%m-%d")
-        else:
-            break
 
     # print(f'---->response.text: {response.text}')
     try:
@@ -481,7 +506,8 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
             print(
                 f'-->created: {created}, subject({iteration}): {subject[:80]}...')
         except:
-            # traceback.print_exc()
+            traceback.print_exc()
+            break
             pass
 
     print(f'done... {total_images} images downloaded')
@@ -550,6 +576,9 @@ if __name__ == "__main__":
     # Access the value
     num_days = args.days
     all_leonardo_dir = args.leonardo_dir
+    # if the folder does not exist, create it
+    if not os.path.exists(all_leonardo_dir):
+        os.makedirs(all_leonardo_dir)
     skip = args.skip
     variants = args.variants
     upscales = args.upscale

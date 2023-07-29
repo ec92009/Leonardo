@@ -1,35 +1,20 @@
-# !pip install traceback        # https://docs.python.org/3/library/traceback.html
 import datetime
 import os
 import subprocess
 import traceback
-# !pip install requests         # https://docs.python-requests.org/en/master/
 import requests
-# !pip install json             # https://docs.python.org/3/library/json.html
 import json
-# !pip install python-dotenv    # https://pypi.org/project/python-dotenv/
 from dotenv import dotenv_values
-# !pip install urllib           # https://docs.python.org/3/library/urllib.html
-import urllib.request
-# !pip install iptcinfo3        # https://pypi.org/project/iptcinfo3/
-from EC_iptcinfo3 import IPTCInfo
-# !pip install sqlite3          # https://docs.python.org/3/library/sqlite3.html
+# import urllib.request
 import sqlite3
-# !pip install argparse         # https://docs.python.org/3/library/argparse.html
-import argparse
-
+import argparse     # https://docs.python.org/3/library/argparse.html
 import shutil
 from PIL import Image   # pip install Pillow
 import numpy as np  # pip install numpy
-
-# import webbrowser  # pip install webbrowser
-
-
-from EC_utils import detect_faces, create_db
-
 import matplotlib.pyplot as plt  # pip install matplotlib
-
 import matplotlib.image as mpimg
+from EC_iptcinfo3 import IPTCInfo
+from EC_utils import detect_faces, create_db
 
 
 def add_iptc_metadata_to_image(image_path, title, keywords):
@@ -56,7 +41,8 @@ def add_iptc_metadata_to_image(image_path, title, keywords):
 def get_iptc_data_from_image(image_path):
     # Open the image file
     # https://pypi.org/project/iptcinfo3/
-    info = IPTCInfo(image_path, inp_charset='utf-8', out_charset='utf-8')
+    # info = IPTCInfo(image_path, inp_charset='utf-8', out_charset='utf-8')
+    info = IPTCInfo(image_path)
     # Get the title
     title = info['object name']
     # Get the keywords
@@ -88,13 +74,7 @@ def file_with_string_exists(folder_path, search_string):
     return False
 
 
-MAX_SIZE = 45_000_000
-
-
 def upscale_one_picture(src_path, pic_Id):
-    # display_image(src_path)
-
-    # print(f'Upscaling {src_path}')
     basename = os.path.basename(src_path)
     src_dir = os.path.dirname(src_path)
     dst_dir = f'{src_dir}/Scaled'
@@ -299,7 +279,14 @@ def keywordsFromPrompt(prompt):
     # remove words that are too short
     longWords = [word for word in dedupes if len(word) > 2]
     # print(f'-->longWords: {longWords}')
-    return longWords
+    black_list = ['a', 'the', 'down', 'with', 'and', 'for', 'from', 'that', 'this', 'these', 'those', 'which', 'what', 'where', 'when', 'how', 'why', 'who', 'whom', 'whose', 'will', 'would', 'should', 'could', 'can', 'may', 'might', 'must', 'shall', 'is', 'are', 'was', 'were', 'be', 'been',
+                  'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'an', 'of', 'in', 'on', 'at', 'to', 'by', 'as', 'or', 'not', 'no', 'yes', 'if', 'then', 'else', 'than', 'so', 'such', 'like', 'unlike', 'but', 'however', 'yet', 'though', 'although', 'even', 'though', 'whether', 'either']
+    # set white_words to be the longWords minus the black_list
+    white_words = [word for word in longWords if word not in black_list]
+
+    # print(f'-->white_words: {white_words}')
+
+    return white_words
 
 
 def order_variant(bearer, photoId):
@@ -319,7 +306,7 @@ def order_variant(bearer, photoId):
     # print(response.text)
 
 
-def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo_dir, variants=False):
+def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo_dir, first_day_str, variants=False):
     global total_images
     url = f"https://cloud.leonardo.ai/api/rest/v1/generations/user/{userid}?offset={offset}&limit={limit}"
     headers = {
@@ -386,6 +373,10 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
     createdDate = createdAt.split('T')[0]
     createdSplit = createdDate.replace('-', '/')
     generation_id = var1[0]["id"]
+
+    if createdDate <= first_day_str:
+        return prompt, createdDate
+
     add_generation(conn, generation_id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps,
                    seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt)
     if modelId != None:
@@ -501,14 +492,15 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
     while created > first_day_str and subject != "...":
         try:
             subject, created = get_generations_by_user_id(
-                userid, iteration, 1, bearer, conn, all_leonardo_dir, variants)
+                userid, iteration, 1, bearer, conn, all_leonardo_dir, first_day_str, variants=variants)
+            if created <= first_day_str:
+                break
             iteration += 1
             print(
-                f'-->created: {created}, subject({iteration}): {subject[:80]}...')
+                f'{created}({iteration}):{subject[:100]}')
         except:
             traceback.print_exc()
             break
-            pass
 
     print(f'done... {total_images} images downloaded')
 
@@ -539,6 +531,7 @@ except Exception as e:
     pass
 
 total_images = 0
+MAX_SIZE = 45_000_000
 
 if __name__ == "__main__":
     # Create an argument parser
@@ -556,10 +549,10 @@ if __name__ == "__main__":
                         help='Number of generations to skip')
     # Add an optional argument to download original pictures
     parser.add_argument('-o', '--originals', type=bool, default=False,
-                        help='Download originals (default: False))')
+                        help='Download originals (default: True))')
     # Add an optional argument to generate variants if not found
     parser.add_argument('-v', '--variants', type=bool, default=True,
-                        help='Generate variants if not found (default: True))')
+                        help='Orders generation of variants if not found - could be expensive (default: False)')
     # Add an optional argument to upscale images
     parser.add_argument('-u', '--upscale', type=bool, default=True,
                         help='Upscale pictures upon download, default: True')

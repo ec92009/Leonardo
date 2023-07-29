@@ -773,7 +773,7 @@ class IPTCInfo:
                 err = "jpeg_skip_variable failed"
             if err is not None:
                 self.error = err
-                logger.warning(err)
+                # logger.warning(err)
                 return None
 
         # If were's here, we must have found the right marker.

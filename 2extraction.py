@@ -15,6 +15,9 @@ import matplotlib.pyplot as plt  # pip install matplotlib
 # https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html
 import matplotlib.image as mpimg
 import time  # https://docs.python.org/3/library/time.html
+import threading    # https://docs.python.org/3/library/threading.html
+import concurrent.futures  # https://docs.python.org/3/library/concurrent.futures.html
+
 from EC_iptcinfo3 import IPTCInfo
 from EC_utils import detect_faces, create_db
 
@@ -291,7 +294,7 @@ def add_generation(conn, generation_id, prompt, modelId, negativePrompt, imageHe
 def keywordsFromPrompt(prompt):
     # remove punctuation
     prompt = prompt.replace(',', ' ').replace(';', ' ').replace(
-        '[', ' ').replace(']', ' ').replace('  ', ' ')
+        '[', ' ').replace(']', ' ').replace('  ', ' ').replace('(', '').replace(')', '')
     # print(f'-->prompt: {prompt}')
     # split the prompt into words
     words = prompt.split()
@@ -302,7 +305,7 @@ def keywordsFromPrompt(prompt):
     # remove words that are too short
     longWords = [word for word in dedupes if len(word) > 2]
     # print(f'-->longWords: {longWords}')
-    black_list = ['a', 'the', 'down', 'with', 'and', 'for', 'from', 'that', 'this', 'these', 'those', 'which', 'what', 'where', 'when', 'how', 'why', 'who', 'whom', 'whose', 'will', 'would', 'should', 'could', 'can', 'may', 'might', 'must', 'shall', 'is', 'are', 'was', 'were', 'be', 'been',
+    black_list = ['a', 'the', 'down', 'with', 'very', 'their', 'his', 'her', 'and', 'for', 'from', 'that', 'this', 'these', 'those', 'which', 'what', 'where', 'when', 'how', 'why', 'who', 'whom', 'whose', 'will', 'would', 'should', 'could', 'can', 'may', 'might', 'must', 'shall', 'is', 'are', 'was', 'were', 'be', 'been',
                   'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'an', 'of', 'in', 'on', 'at', 'to', 'by', 'as', 'or', 'not', 'no', 'yes', 'if', 'then', 'else', 'than', 'so', 'such', 'like', 'unlike', 'but', 'however', 'yet', 'though', 'although', 'even', 'though', 'whether', 'either']
     # set white_words to be the longWords minus the black_list
     white_words = [word for word in longWords if word not in black_list]
@@ -310,6 +313,10 @@ def keywordsFromPrompt(prompt):
     # print(f'-->white_words: {white_words}')
 
     return white_words
+
+
+def send_order(url, payload, headers):
+    response = requests.post(url, json=payload, headers=headers)
 
 
 def order_variant(bearer, photoId):
@@ -324,7 +331,9 @@ def order_variant(bearer, photoId):
         "authorization": f"Bearer {bearer}"
     }
 
-    response = requests.post(url, json=payload, headers=headers)
+    t = threading.Thread(target=send_order, args=(url, payload, headers))
+    threads.append(t)
+    t.start()
 
     # print(response.text)
 
@@ -394,7 +403,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
     createdAt = var1[0]["createdAt"]
     # print(f'-->created At: {createdAt}')
     createdDate = createdAt.split('T')[0]
-    createdSplit = createdDate.replace('-', '/')
+    createdSlashed = createdDate.replace('-', '/')
     generation_id = var1[0]["id"]
 
     if createdDate <= first_day_str:
@@ -428,7 +437,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
 
         if originals:
             download_photo(all_leonardo_dir, url,
-                           createdSplit, filename, title, keywords, photoId, 'ORIGINAL')
+                           createdSlashed, filename, title, keywords, photoId, 'ORIGINAL')
 
         # VARIANTS (UPSCALES AND CROPS)
         stats(variants=len(variant))
@@ -455,12 +464,12 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
             keywords = keywordsFromPrompt(prompt)
 
             download_photo(all_leonardo_dir, var_url,
-                           createdSplit, filename, title, keywords, var_id, var_type)
+                           createdSlashed, filename, title, keywords, var_id, var_type)
 
     return prompt, createdDate
 
 
-def download_file(url, save_path):
+def download_file(url, save_path, title, keywords):
     # Send an HTTP GET request to the URL
     response = requests.get(url)
 
@@ -472,29 +481,39 @@ def download_file(url, save_path):
         # print(f"File saved successfully to: {save_path}")
         # display_image(save_path)
 
+        add_iptc_metadata_to_image(save_path, title, keywords)
+        stats(downloaded=1)
+
     else:
         print(
             f"Failed to download the file. Status code: {response.status_code}")
 
 
-def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keywords, pic_Id, variant_type):
+def download_photo(target_dir, url, created, filename, title, keywords, pic_Id, variant_type):
 
-    outfolder = f"{all_leonardo_dir}/{createdSplit}/{variant_type}"
+    outfolder = f"{target_dir}/{created}/{variant_type}"
     os.makedirs(outfolder, exist_ok=True)
 
     outfile = f"{outfolder}/{filename}"
     # if outfile does not already exist, download it
     if not os.path.exists(outfile):
         try:
-            download_file(url, outfile)
+            t = threading.Thread(target=download_file,
+                                 args=(url, outfile, title, keywords))
+            threads.append(t)
+            t.start()
+
         except Exception as e:
             print(f'Error downloading: {e}')
             pass
-        else:
-            add_iptc_metadata_to_image(outfile, title, keywords)
-            stats(downloaded=1)
 
     if upscales:
+        try:
+            t.join()
+            threads.remove(t)
+        except:
+            pass
+        # upscale the image
         upscale_one_picture(outfile, pic_Id)
 
 
@@ -567,6 +586,7 @@ try:
 except Exception as e:
     pass
 
+threads = []
 
 if __name__ == "__main__":
 
@@ -581,7 +601,7 @@ if __name__ == "__main__":
     parser.add_argument('-k', '--key', type=str, default="",
                         help='Leonardo API key')
     # Add an optional argument for how many days to download
-    parser.add_argument('-d', '--days', type=int, default=10,
+    parser.add_argument('-d', '--days', type=int, default=0,
                         help='Number of days to download - 0 for unlimited (default: 0)')
     # Add an optional argument to skip the most recent generations
     parser.add_argument('-s', '--skip', type=int, default=0,
@@ -638,6 +658,10 @@ if __name__ == "__main__":
         'will NOT detect faces')
 
     extract(num_days, all_leonardo_dir, skip, variants)
+
+    # wait for all threads to finish
+    for thread in threads:
+        thread.join()
 
     finish = time.perf_counter()
     print(f'Finished in {round(finish-start, 2)} second(s)')

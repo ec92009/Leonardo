@@ -12,9 +12,28 @@ import shutil
 from PIL import Image   # pip install Pillow
 import numpy as np  # pip install numpy
 import matplotlib.pyplot as plt  # pip install matplotlib
+# https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html
 import matplotlib.image as mpimg
+import time  # https://docs.python.org/3/library/time.html
 from EC_iptcinfo3 import IPTCInfo
 from EC_utils import detect_faces, create_db
+
+
+STATS = {'downloaded': 0, 'ordered': 0, 'upscaled': 0,
+         'generations': 0, 'originals': 0, 'variants': 0}
+
+
+def stats(downloaded=0, ordered=0, upscaled=0, generations=0, originals=0, variants=0):
+    STATS['downloaded'] += downloaded
+    STATS['ordered'] += ordered
+    STATS['upscaled'] += upscaled
+    STATS['generations'] += generations
+    STATS['originals'] += originals
+    STATS['variants'] += variants
+    return STATS
+
+
+MAX_SIZE = 45_000_000
 
 
 def add_iptc_metadata_to_image(image_path, title, keywords):
@@ -34,7 +53,7 @@ def add_iptc_metadata_to_image(image_path, title, keywords):
 
     except:
         print(f"Error writing IPTC data to {image_path}")
-        traceback.print_exc()
+        # traceback.print_exc()
         pass
 
 
@@ -75,6 +94,7 @@ def file_with_string_exists(folder_path, search_string):
 
 
 def upscale_one_picture(src_path, pic_Id):
+
     basename = os.path.basename(src_path)
     src_dir = os.path.dirname(src_path)
     dst_dir = f'{src_dir}/Scaled'
@@ -118,6 +138,9 @@ def upscale_one_picture(src_path, pic_Id):
                                    capture_output=True, text=True)
                 add_iptc_metadata_to_image(
                     dest_path, iptc_title, iptc_keywords)
+
+                stats(upscaled=1)
+
                 face_found = detect_faces(dest_path) if faces else False
             else:
                 print(f'Upscaled version already exists, skipping')
@@ -129,7 +152,7 @@ def upscale_one_picture(src_path, pic_Id):
         else:
             # if the file is too large to resize, say so and take it out of the way
             print(
-                f'current size: {width}x{height} too big to resize')
+                f'current size: {width}x{height} too big to upscale')
             dest_path = os.path.join(
                 dst_dir, f"{basename}.jpg")
 
@@ -175,7 +198,7 @@ def add_model(conn, modelId):
             var = var0["custom_models_by_pk"]
             # print(f'---->var: {var}')
         except Exception as e:
-            traceback.print_exc()
+            # traceback.print_exc()
             return
 
         id = var["id"]
@@ -199,7 +222,7 @@ def add_model(conn, modelId):
                            status, type, updatedAt, createdAt, sdVersion, isPublic, instancePrompt))
             # print(f'added model to database: {name}')
         except Exception as e:
-            traceback.print_exc()
+            # traceback.print_exc()
             exit()
 
     # Commit the changes and close the connection
@@ -218,7 +241,7 @@ def add_variant(conn, photo_id, variant_id, variant_type, url):
         cursor.execute(sql, (variant_id, photo_id, variant_type, url))
         # print(f'added variant {variant_type} to database: {variant_id}')
     except Exception as e:
-        traceback.print_exc()
+        # traceback.print_exc()
         exit()
 
     # Commit the changes and close the connection
@@ -238,7 +261,7 @@ def add_photo(conn, photo_id, generation_id, url, nsfw, likeCount):
         # print(f'added/updated photo to database: {photo_id}')
 
     except Exception as e:
-        traceback.print_exc()
+        # traceback.print_exc()
         exit()
 
     # Commit the changes and close the connection
@@ -258,7 +281,7 @@ def add_generation(conn, generation_id, prompt, modelId, negativePrompt, imageHe
         # print(f'added generation to database: {generation_id}')
 
     except Exception as e:
-        traceback.print_exc()
+        # traceback.print_exc()
         exit()
 
     # Commit the changes
@@ -307,7 +330,7 @@ def order_variant(bearer, photoId):
 
 
 def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo_dir, first_day_str, variants=False):
-    global total_images
+
     url = f"https://cloud.leonardo.ai/api/rest/v1/generations/user/{userid}?offset={offset}&limit={limit}"
     headers = {
         "accept": "application/json",
@@ -345,7 +368,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
     except Exception as e:
         print(f'Error: {json.loads(response.content)["error"]}')
         print(f'response.text: {response.text}')
-        traceback.print_exc()
+        # traceback.print_exc()
         return "", datetime.date.today().strftime("%Y-%m-%d")
     # if var1 is empty, let the exception be raised
 
@@ -377,12 +400,17 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
     if createdDate <= first_day_str:
         return prompt, createdDate
 
+    print(f'{createdDate}({offset}):{prompt[:100]}')
+
     add_generation(conn, generation_id, prompt, modelId, negativePrompt, imageHeight, imageWidth, inferenceSteps,
                    seed, public, scheduler, sdVersion, status, presetStyle, initStrength, guidanceScale, createdAt)
+    stats(generations=1)
+
     if modelId != None:
         add_model(conn, modelId)
 
     generated_images = var1[0]["generated_images"]
+    stats(originals=len(generated_images))
 
     for img_index in range(len(generated_images)):
         url = generated_images[img_index]["url"]
@@ -403,11 +431,14 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
                            createdSplit, filename, title, keywords, photoId, 'ORIGINAL')
 
         # VARIANTS (UPSCALES AND CROPS)
+        stats(variants=len(variant))
+
         if len(variant) == 0:
             if variants:
                 print(
-                    f"-->No variants for image {img_index}, let's order one for {photoId}")
+                    f"-->No variants for image {img_index}, ordering one")
                 order_variant(bearer, photoId)
+                stats(ordered=1)
 
         # DOWNLOAD VARIANTS
         for type_index in range(len(variant)):
@@ -447,7 +478,7 @@ def download_file(url, save_path):
 
 
 def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keywords, pic_Id, variant_type):
-    global total_images
+
     outfolder = f"{all_leonardo_dir}/{createdSplit}/{variant_type}"
     os.makedirs(outfolder, exist_ok=True)
 
@@ -456,18 +487,19 @@ def download_photo(all_leonardo_dir, url, createdSplit, filename, title, keyword
     if not os.path.exists(outfile):
         try:
             download_file(url, outfile)
-            add_iptc_metadata_to_image(outfile, title, keywords)
-            total_images += 1
         except Exception as e:
             print(f'Error downloading: {e}')
             pass
+        else:
+            add_iptc_metadata_to_image(outfile, title, keywords)
+            stats(downloaded=1)
 
     if upscales:
         upscale_one_picture(outfile, pic_Id)
 
 
 def extract(num_days, all_leonardo_dir, skip=0, variants=False):
-    global total_images
+
     today = datetime.date.today()
     # convert today to a string in the format YYYY-MM-DD
     today_str = today.strftime("%Y-%m-%d")
@@ -477,10 +509,11 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
         first_day = today - datetime.timedelta(days=num_days)
     # convert first_day to a string in the format YYYY-MM-DD
     first_day_str = first_day.strftime("%Y-%m-%d")
+    print(f'Will start at {today_str}, and stop at {first_day_str}, excluded')
 
-    subject = ""
+    prompt = ""
     iteration = skip
-    created = today_str
+    date_created = today_str
 
     # Create the database is database.sqlite3 does not exist
     db_path = f'{all_leonardo_dir}/database.sqlite3'
@@ -489,20 +522,24 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
 
     conn = sqlite3.connect(db_path)
 
-    while created > first_day_str and subject != "...":
+    while date_created > first_day_str and prompt != "...":
         try:
-            subject, created = get_generations_by_user_id(
+            prompt, date_created = get_generations_by_user_id(
                 userid, iteration, 1, bearer, conn, all_leonardo_dir, first_day_str, variants=variants)
-            if created <= first_day_str:
+            if date_created <= first_day_str:
                 break
             iteration += 1
-            print(
-                f'{created}({iteration}):{subject[:100]}')
-        except:
+            # print(
+            #     f'{date_created}({iteration}):{prompt[:100]}')
+        except KeyboardInterrupt:
+            print('Interrupted by user action')
+            break
+        except Exception as e:
+            print(f'Error: {e}')
             traceback.print_exc()
             break
 
-    print(f'done... {total_images} images downloaded')
+    print(f'done...{stats()}')
 
     conn.close()
 
@@ -530,10 +567,12 @@ try:
 except Exception as e:
     pass
 
-total_images = 0
-MAX_SIZE = 45_000_000
 
 if __name__ == "__main__":
+
+    # https://docs.python.org/3/library/time.html#time.perf_counter
+    start = time.perf_counter()
+
     # Create an argument parser
     parser = argparse.ArgumentParser(
         description='Download the Leonardo images from the last N days')
@@ -542,23 +581,23 @@ if __name__ == "__main__":
     parser.add_argument('-k', '--key', type=str, default="",
                         help='Leonardo API key')
     # Add an optional argument for how many days to download
-    parser.add_argument('-d', '--days', type=int, default=0,
-                        help='Number of days to download - 0 for unlimited')
+    parser.add_argument('-d', '--days', type=int, default=10,
+                        help='Number of days to download - 0 for unlimited (default: 0)')
     # Add an optional argument to skip the most recent generations
     parser.add_argument('-s', '--skip', type=int, default=0,
-                        help='Number of generations to skip')
+                        help='Number of generations to skip (default: 0)')
     # Add an optional argument to download original pictures
     parser.add_argument('-o', '--originals', type=bool, default=False,
-                        help='Download originals (default: True))')
+                        help='Download originals (default: False)')
     # Add an optional argument to generate variants if not found
     parser.add_argument('-v', '--variants', type=bool, default=True,
                         help='Orders generation of variants if not found - could be expensive (default: False)')
     # Add an optional argument to upscale images
     parser.add_argument('-u', '--upscale', type=bool, default=True,
-                        help='Upscale pictures upon download, default: True')
+                        help='Upscale pictures upon download, (default: True)')
     # Add an optional argument to detect faces
     parser.add_argument('-f', '--faces', type=bool, default=False,
-                        help='Detect if scaled pictures include a face, and sort them in a different folder, default: False')
+                        help='Detect if scaled pictures include a face, and sort them in a different folder, (default: False)')
     # Add an optional argument for the download folder
     parser.add_argument('-l', '--leonardo_dir', type=str, default="/Users/ecohen/Documents/LR/_All Leonardo",
                         help='Where to download')
@@ -585,9 +624,20 @@ if __name__ == "__main__":
     userid, username = get_userid_from_bearer(bearer)
     print(f'userid: {userid}, username: {username}')
 
-    if num_days == 0:
-        print(f'extracting all days to {all_leonardo_dir}')
-    else:
-        print(f'extracting {num_days} days to {all_leonardo_dir}')
+    print(f'Will extract all days to {all_leonardo_dir}') if num_days == 0 else print(
+        f'Will extract the last {num_days} days to {all_leonardo_dir}')
+    print(f'Will skip the first: {skip} generations') if skip > 0 else print(
+        'Will NOT skip any generations')
+    print('will download originals') if originals else print(
+        'will NOT download originals')
+    print('will order generation of UPSCALE variants (could consume lots of tokens - 5 per order)') if variants else print(
+        'will NOT generate variants')
+    print(f'will upscale images 2x, 3x, or 4x, limited to {MAX_SIZE/1_000_000} MPixels') if upscales else print(
+        'will NOT upscale images')
+    print('will detect faces') if faces else print(
+        'will NOT detect faces')
 
     extract(num_days, all_leonardo_dir, skip, variants)
+
+    finish = time.perf_counter()
+    print(f'Finished in {round(finish-start, 2)} second(s)')

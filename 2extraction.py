@@ -16,7 +16,10 @@ import matplotlib.pyplot as plt  # pip install matplotlib
 import matplotlib.image as mpimg
 import time  # https://docs.python.org/3/library/time.html
 import threading    # https://docs.python.org/3/library/threading.html
-import concurrent.futures  # https://docs.python.org/3/library/concurrent.futures.html
+import multiprocessing as mp  # https://docs.python.org/3/library/multiprocessing.html
+# https://docs.python.org/3/library/concurrent.futures.html
+import concurrent.futures as cf
+
 
 from EC_iptcinfo3 import IPTCInfo
 from EC_utils import detect_faces, create_db
@@ -96,7 +99,7 @@ def file_with_string_exists(folder_path, search_string):
     return False
 
 
-def upscale_one_picture(src_path, pic_Id):
+def upscale_one_picture(src_path, pic_Id, iter):
 
     basename = os.path.basename(src_path)
     src_dir = os.path.dirname(src_path)
@@ -135,7 +138,7 @@ def upscale_one_picture(src_path, pic_Id):
             # if the destination file does not exists, skip it
             if not os.path.exists(dest_path) and not os.path.exists(face_path):
                 print(
-                    f"scaling {ratio}x from {width}x{height} to {width*ratio}x{height*ratio} ie. {width*ratio*height*ratio/1_000_000} Mpixels")
+                    f"{iter} scaling {ratio}x from {width}x{height} to {width*ratio}x{height*ratio} ie. {width*ratio*height*ratio/1_000_000} Mpixels")
                 command = f'./realesrgan-ncnn-vulkan -i "{src_path}" -o "{dest_path}" -s {ratio}'
                 _ = subprocess.run(command, shell=True,
                                    capture_output=True, text=True)
@@ -358,6 +361,9 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
                 return "", datetime.date.today().strftime("%Y-%m-%d")
             else:
                 continue
+        except Exception as e:
+            print(f'Error: {e}')
+            continue
 
         if response.status_code == 200:
             break
@@ -437,7 +443,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
 
         if originals:
             download_photo(all_leonardo_dir, url,
-                           createdSlashed, filename, title, keywords, photoId, 'ORIGINAL')
+                           createdSlashed, filename, title, keywords, photoId, 'ORIGINAL', f'->{createdDate}({offset}-{img_index})')
 
         # VARIANTS (UPSCALES AND CROPS)
         stats(variants=len(variant))
@@ -464,7 +470,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
             keywords = keywordsFromPrompt(prompt)
 
             download_photo(all_leonardo_dir, var_url,
-                           createdSlashed, filename, title, keywords, var_id, var_type)
+                           createdSlashed, filename, title, keywords, var_id, var_type, f'->{createdDate}({offset}-{img_index}-{type_index})')
 
     return prompt, createdDate
 
@@ -489,7 +495,7 @@ def download_file(url, save_path, title, keywords):
             f"Failed to download the file. Status code: {response.status_code}")
 
 
-def download_photo(target_dir, url, created, filename, title, keywords, pic_Id, variant_type):
+def download_photo(target_dir, url, created, filename, title, keywords, pic_Id, variant_type, iter):
 
     outfolder = f"{target_dir}/{created}/{variant_type}"
     os.makedirs(outfolder, exist_ok=True)
@@ -514,7 +520,15 @@ def download_photo(target_dir, url, created, filename, title, keywords, pic_Id, 
         except:
             pass
         # upscale the image
-        upscale_one_picture(outfile, pic_Id)
+
+        _ = executor.submit(upscale_one_picture, outfile, pic_Id, iter)
+
+        # p = multiprocessing.Process(
+        #     target=upscale_one_picture, args=(outfile, pic_Id))
+        # p.start()
+        # processes.append(p)
+
+        # upscale_one_picture(outfile, pic_Id)
 
 
 def extract(num_days, all_leonardo_dir, skip=0, variants=False):
@@ -558,8 +572,6 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
             traceback.print_exc()
             break
 
-    print(f'done...{stats()}')
-
     conn.close()
 
 
@@ -582,11 +594,12 @@ def get_userid_from_bearer(bearer):
 try:
     config = dotenv_values(".env")
     bearer = config["LEO_KEY"]
-    print(f'using bearer key: from .env file')
+    # print(f'using bearer key: from .env file')
 except Exception as e:
     pass
 
 threads = []
+
 
 if __name__ == "__main__":
 
@@ -607,11 +620,11 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--skip', type=int, default=0,
                         help='Number of generations to skip (default: 0)')
     # Add an optional argument to download original pictures
-    parser.add_argument('-o', '--originals', type=bool, default=False,
-                        help='Download originals (default: False)')
+    parser.add_argument('-o', '--originals', type=bool, default=True,
+                        help='Download originals (default: True)')
     # Add an optional argument to generate variants if not found
     parser.add_argument('-v', '--variants', type=bool, default=True,
-                        help='Orders generation of variants if not found - could be expensive (default: False)')
+                        help='Orders generation of variants if not found - could be expensive (default: True)')
     # Add an optional argument to upscale images
     parser.add_argument('-u', '--upscale', type=bool, default=True,
                         help='Upscale pictures upon download, (default: True)')
@@ -657,11 +670,13 @@ if __name__ == "__main__":
     print('will detect faces') if faces else print(
         'will NOT detect faces')
 
-    extract(num_days, all_leonardo_dir, skip, variants)
+    with cf.ProcessPoolExecutor() as executor:
+        extract(num_days, all_leonardo_dir, skip, variants)
 
     # wait for all threads to finish
     for thread in threads:
         thread.join()
 
     finish = time.perf_counter()
+    print(f'done...{stats()}')
     print(f'Finished in {round(finish-start, 2)} second(s)')

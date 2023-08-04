@@ -614,20 +614,20 @@ if __name__ == "__main__":
     parser.add_argument('-k', '--key', type=str, default="",
                         help='Leonardo API key')
     # Add an optional argument for how many days to download
-    parser.add_argument('-d', '--days', type=int, default=0,
-                        help='Number of days to download - 0 for unlimited (default: 0)')
+    parser.add_argument('-d', '--days', type=int, default=1,
+                        help='Number of days to download - 0 for unlimited (default: 1)')
     # Add an optional argument to skip the most recent generations
     parser.add_argument('-s', '--skip', type=int, default=0,
                         help='Number of generations to skip (default: 0)')
     # Add an optional argument to download original pictures
-    parser.add_argument('-o', '--originals', type=bool, default=True,
-                        help='Download originals (default: True)')
+    parser.add_argument('-o', '--originals', action="store_true",
+                        help='Download originals (default: False)')
     # Add an optional argument to generate variants if not found
-    parser.add_argument('-v', '--variants', type=bool, default=True,
-                        help='Orders generation of variants if not found - could be expensive (default: True)')
+    parser.add_argument('-v', '--variants', action="store_true",
+                        help='Orders generation of variants if not found - could be expensive (default: False)')
     # Add an optional argument to upscale images
-    parser.add_argument('-u', '--upscale', type=bool, default=True,
-                        help='Upscale pictures upon download, (default: True)')
+    parser.add_argument('-u', '--upscale', action="store_true",
+                        help='Upscale pictures upon download, (default: False)')
     # Add an optional argument to detect faces
     parser.add_argument('-f', '--faces', type=bool, default=False,
                         help='Detect if scaled pictures include a face, and sort them in a different folder, (default: False)')
@@ -677,6 +677,6 @@ if __name__ == "__main__":
     for thread in threads:
         thread.join()
 
+    print(f'Done...{stats()}')
     finish = time.perf_counter()
-    print(f'done...{stats()}')
     print(f'Finished in {round(finish-start, 2)} second(s)')

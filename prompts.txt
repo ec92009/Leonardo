@@ -1,14 +1,3 @@
-Fruit, healthy, ripe, juicy, refreshing, colorful, natural, organic, summer, tropical 
-Coffee, latte, caffeine, aroma, brewed, barista, espresso, morning, cappuccino, beans 
-Pizza, pepperoni, cheese, spicy, delicious, Italian, crusty, baked, toppings, tomato sauce 
-Beer, cheers, cold, refreshing, frothy, brewery, pub, ale, amber, foam 
-Grilling, barbecue, steak, meat, burger, smoke, outdoor, flame, charcoal, skewers 
-Sushi, soy sauce, chopsticks, fresh, Japanese, rolls, salmon, wasabi, seafood, seaweed 
-Chocolate, dessert, indulgence, sweet, cocoa, creamy, truffles, fondue, ganache, decadence 
-Wine, vineyard, cellar, red, white, glass, bottle, cork, aged, aroma 
-Salad, healthy eating, greens, fresh, veggies, dressing, bowls, rainbow, toppings, nutritious 
-Cocktails, bartending, mixology, shaken, stirred, tropical, gin, rum, vodka, garnish
-Yoga and Meditation - relaxation, mindfulness, stretching, balance, zen, peace, healthy lifestyle, concentration, harmony, inner peace
 Diet and Nutrition - healthy eating, fruits and vegetables, meal planning, portion control, vitamins and minerals, energy boost, weight management, detoxification, antioxidants, hydration
 Fitness and Exercise - cardio, strength training, endurance, bodybuilding, outdoor activities, workout equipment, gym, sports, weight lifting, self-discipline
 Mental Health - emotional wellbeing, stress relief, anxiety management, therapy, self-care, coping skills, mindfulness, positivity, self-esteem, self-awareness

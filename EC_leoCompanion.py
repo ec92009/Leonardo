@@ -1,7 +1,10 @@
-import tkinter as tk
+import tkinter as tk    # https://docs.python.org/3/library/tkinter.html
+
 from tkinter import filedialog
-import subprocess
-import threading
+import concurrent.futures as cf
+
+
+import EC_extraction
 
 
 def browse_folder():
@@ -9,64 +12,41 @@ def browse_folder():
     download_folder_var.set(folder_path)
 
 
+def stop_extraction():
+    global process
+    try:
+        process.terminate()
+    except Exception as e:
+        pass
+
+
 def start_extraction():
     leonardo_dir = download_folder_var.get()
+
+    try:
+        config = dotenv_values(".env")
+        EC_EXTRACTION_KEY = config["LEO_KEY"]
+        # print(f'using bearer key: from .env file')
+    except Exception as e:
+        pass
+
     key = api_key_var.get()
+    if key != "":
+        EC_EXTRACTION_KEY = key
+        print(f'using bearer key: from command line')
+
     days = num_days_var.get()
     skip = skip_var.get()
-    originals = originals_var.get()
-    variants = variants_var.get()
-    upscale = upscale_var.get()
 
-    if leonardo_dir == "":
-        leonardo_dir = "/Users/ecohen/Documents/LR/_All Leonardo"
-    if days == "":
-        days = 2
-    if skip == "":
-        skip = 0
-    if originals == "":
-        originals = True
-    if variants == "":
-        variants = True
-    if upscale == "":
-        upscale = True
+    EC_EXTRACTION_ORIGINALS = originals_var.get()
+    EC_EXTRACTION_VARIANTS = variants_var.get()
+    EC_EXTRACTION_UPSCALES = upscale_var.get()
 
-    # Call the "2extraction.py" script with the given parameters
-    cmd = ["python", "2extraction.py"]
-    if leonardo_dir:
-        cmd.append(f"--leonardo_dir={leonardo_dir}")
-    if key:
-        cmd.append(f"--key={key}")
-    if days:
-        cmd.append(f"--days={days}")
-    if skip:
-        cmd.append(f"--skip={skip}")
-    if originals:
-        cmd.append("--originals")
-    if variants:
-        cmd.append("--variants")
-    if upscale:
-        cmd.append("--upscale")
-
-    cmd1 = " ".join(cmd)
-    print(f'cmd: {cmd1}')
-
-    process = subprocess.Popen(cmd1, stdout=subprocess.PIPE,
-                               stderr=subprocess.STDOUT, universal_newlines=True, bufsize=1)
-
-    def read_output():
-        while True:
-            line = process.stdout.readline()
-            if not line:
-                break
-            output_text.config(state=tk.NORMAL)
-            output_text.insert(tk.END, line)
-            output_text.config(state=tk.DISABLED)
-            output_text.see(tk.END)  # Auto-scroll to the end
-        process.stdout.close()
-
-    output_thread = threading.Thread(target=read_output)
-    output_thread.start()
+    with cf.ProcessPoolExecutor() as PPexecutor:
+        with cf.ThreadPoolExecutor() as TPexecutor:
+            f = TPexecutor.submit(EC_extraction.extract, days,
+                                  leonardo_dir, skip, PPexecutor)
+            print(f'f.result: {f.result()}')
 
 
 # Function to resize the output window
@@ -78,12 +58,12 @@ def resize_output(event):
 
 # Create the main application window
 app = tk.Tk()
-app.title("Script Controller")
+app.title("Leonardo Companion")
 
 # Variables to hold user input
 download_folder_var = tk.StringVar()
 # Set the default value
-download_folder_var.set("/Users/ecohen/Documents/LR/All_Leonardo")
+download_folder_var.set("/Users/ecohen/Documents/LR/_All Leonardo")
 
 api_key_var = tk.StringVar()
 api_key_var.set("")
@@ -125,7 +105,9 @@ tk.Checkbutton(app, text="Variants",
 tk.Checkbutton(app, text="Upscale", variable=upscale_var).grid(row=4, column=2)
 
 # Start button
-tk.Button(app, text="Start", command=start_extraction).grid(row=5, column=1)
+tk.Button(app, text="Start", command=start_extraction).grid(row=5, column=0)
+# Stop button
+tk.Button(app, text="Stop", command=stop_extraction).grid(row=5, column=2)
 
 # Output text field
 output_text = tk.Text(app, wrap=tk.WORD, height=10,
@@ -135,7 +117,7 @@ output_text.config(state=tk.DISABLED)
 
 
 # Bind the resize function to the "<Configure>" event of the main window
-app.bind("<Configure>", resize_output)
+# app.bind("<Configure>", resize_output)
 
 # Start the Tkinter event loop
 app.mainloop()

@@ -25,21 +25,14 @@ from EC_iptcinfo3 import IPTCInfo
 from EC_utils import detect_faces, create_db
 
 
-STATS = {'downloaded': 0, 'ordered': 0, 'upscaled': 0,
-         'generations': 0, 'originals': 0, 'variants': 0}
-
-
 def stats(downloaded=0, ordered=0, upscaled=0, generations=0, originals=0, variants=0):
-    STATS['downloaded'] += downloaded
-    STATS['ordered'] += ordered
-    STATS['upscaled'] += upscaled
-    STATS['generations'] += generations
-    STATS['originals'] += originals
-    STATS['variants'] += variants
-    return STATS
-
-
-MAX_SIZE = 45_000_000
+    EC_EXTRACTION_STATS['downloaded'] += downloaded
+    EC_EXTRACTION_STATS['ordered'] += ordered
+    EC_EXTRACTION_STATS['upscaled'] += upscaled
+    EC_EXTRACTION_STATS['generations'] += generations
+    EC_EXTRACTION_STATS['originals'] += originals
+    EC_EXTRACTION_STATS['variants'] += variants
+    return EC_EXTRACTION_STATS
 
 
 def add_iptc_metadata_to_image(image_path, title, keywords):
@@ -125,7 +118,7 @@ def upscale_one_picture(src_path, pic_Id, iter):
     # Open the image
     with Image.open(src_path) as img:
         width, height = img.size
-        ratioMP = MAX_SIZE / (width * height)
+        ratioMP = EC_EXTRACTION_MAX_SIZE / (width * height)
         ratio = int(np.sqrt(ratioMP))
         ratio = int(min(4, ratio))
         face_found = False
@@ -195,7 +188,7 @@ def add_model(conn, modelId):
         url = f"https://cloud.leonardo.ai/api/rest/v1/models/{modelId}"
         headers = {
             "accept": "application/json",
-            "authorization": f"Bearer {bearer}"
+            "authorization": f"Bearer {EC_EXTRACTION_KEY}"
         }
         response = requests.get(url, headers=headers)
         try:
@@ -322,7 +315,7 @@ def send_order(url, payload, headers):
     response = requests.post(url, json=payload, headers=headers)
 
 
-def order_variant(bearer, photoId):
+def order_variant(photoId):
     import requests
 
     url = "https://cloud.leonardo.ai/api/rest/v1/variations/upscale"
@@ -331,22 +324,22 @@ def order_variant(bearer, photoId):
     headers = {
         "accept": "application/json",
         "content-type": "application/json",
-        "authorization": f"Bearer {bearer}"
+        "authorization": f"Bearer {EC_EXTRACTION_KEY}"
     }
 
     t = threading.Thread(target=send_order, args=(url, payload, headers))
-    threads.append(t)
+    EC_EXTRACTION_threads.append(t)
     t.start()
 
     # print(response.text)
 
 
-def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo_dir, first_day_str, variants=False):
+def get_generations_by_user_id(userid, offset, limit, conn, all_leonardo_dir, first_day_str, executor):
 
     url = f"https://cloud.leonardo.ai/api/rest/v1/generations/user/{userid}?offset={offset}&limit={limit}"
     headers = {
         "accept": "application/json",
-        "authorization": f"Bearer {bearer}"
+        "authorization": f"Bearer {EC_EXTRACTION_KEY}"
     }
 
     attempts = 10
@@ -441,18 +434,20 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
         title = prompt
         keywords = keywordsFromPrompt(prompt)
 
-        if originals:
+        if EC_EXTRACTION_ORIGINALS:
             download_photo(all_leonardo_dir, url,
-                           createdSlashed, filename, title, keywords, photoId, 'ORIGINAL', f'->{createdDate}({offset}-{img_index})')
+                           createdSlashed, filename,
+                           title, keywords, photoId, 'ORIGINAL',
+                           f'->{createdDate}({offset}-{img_index})', executor)
 
         # VARIANTS (UPSCALES AND CROPS)
         stats(variants=len(variant))
 
         if len(variant) == 0:
-            if variants:
+            if EC_EXTRACTION_VARIANTS:
                 print(
                     f"-->No variants for image {img_index}, ordering one")
-                order_variant(bearer, photoId)
+                order_variant(photoId)
                 stats(ordered=1)
 
         # DOWNLOAD VARIANTS
@@ -470,7 +465,7 @@ def get_generations_by_user_id(userid, offset, limit, bearer, conn, all_leonardo
             keywords = keywordsFromPrompt(prompt)
 
             download_photo(all_leonardo_dir, var_url,
-                           createdSlashed, filename, title, keywords, var_id, var_type, f'->{createdDate}({offset}-{img_index}-{type_index})')
+                           createdSlashed, filename, title, keywords, var_id, var_type, f'->{createdDate}({offset}-{img_index}-{type_index})', executor)
 
     return prompt, createdDate
 
@@ -495,7 +490,7 @@ def download_file(url, save_path, title, keywords):
             f"Failed to download the file. Status code: {response.status_code}")
 
 
-def download_photo(target_dir, url, created, filename, title, keywords, pic_Id, variant_type, iter):
+def download_photo(target_dir, url, created, filename, title, keywords, pic_Id, variant_type, iter, executor):
 
     outfolder = f"{target_dir}/{created}/{variant_type}"
     os.makedirs(outfolder, exist_ok=True)
@@ -506,22 +501,23 @@ def download_photo(target_dir, url, created, filename, title, keywords, pic_Id, 
         try:
             t = threading.Thread(target=download_file,
                                  args=(url, outfile, title, keywords))
-            threads.append(t)
+            EC_EXTRACTION_threads.append(t)
             t.start()
 
         except Exception as e:
             print(f'Error downloading: {e}')
             pass
 
-    if upscales:
+    if EC_EXTRACTION_UPSCALES:
         try:
             t.join()
-            threads.remove(t)
+            EC_EXTRACTION_threads.remove(t)
         except:
             pass
         # upscale the image
 
-        _ = executor.submit(upscale_one_picture, outfile, pic_Id, iter)
+        _ = executor.submit(
+            upscale_one_picture, outfile, pic_Id, iter)
 
         # p = multiprocessing.Process(
         #     target=upscale_one_picture, args=(outfile, pic_Id))
@@ -531,7 +527,10 @@ def download_photo(target_dir, url, created, filename, title, keywords, pic_Id, 
         # upscale_one_picture(outfile, pic_Id)
 
 
-def extract(num_days, all_leonardo_dir, skip=0, variants=False):
+def extract(num_days, all_leonardo_dir, skip, executor):
+
+    userid, username = get_userid_from_bearer()
+    print(f'userid: {userid}, username: {username}')
 
     today = datetime.date.today()
     # convert today to a string in the format YYYY-MM-DD
@@ -558,7 +557,7 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
     while date_created > first_day_str and prompt != "...":
         try:
             prompt, date_created = get_generations_by_user_id(
-                userid, iteration, 1, bearer, conn, all_leonardo_dir, first_day_str, variants=variants)
+                userid, iteration, 1, conn, all_leonardo_dir, first_day_str, executor)
             if date_created <= first_day_str:
                 break
             iteration += 1
@@ -573,14 +572,29 @@ def extract(num_days, all_leonardo_dir, skip=0, variants=False):
             break
 
     conn.close()
+    return EC_EXTRACTION_STATS
 
 
-def get_userid_from_bearer(bearer):
+def get_userid_from_bearer():
+
+    global EC_EXTRACTION_KEY
+
+    if EC_EXTRACTION_KEY == "":
+        try:
+            config = dotenv_values(".env")
+            EC_EXTRACTION_KEY = config["LEO_KEY"]
+            # print(f'using bearer key: from .env file')
+        except Exception as e:
+            pass
+    if EC_EXTRACTION_KEY == "":
+        print("Leonardo API key not found, exiting")
+        return
+
     url = "https://cloud.leonardo.ai/api/rest/v1/me"
 
     headers = {
         "accept": "application/json",
-        "authorization": f"Bearer {bearer}"
+        "authorization": f"Bearer {EC_EXTRACTION_KEY}"
     }
 
     response = requests.get(url, headers=headers)
@@ -591,17 +605,10 @@ def get_userid_from_bearer(bearer):
     return userid, username
 
 
-try:
-    config = dotenv_values(".env")
-    bearer = config["LEO_KEY"]
-    # print(f'using bearer key: from .env file')
-except Exception as e:
-    pass
-
-threads = []
-
-
-if __name__ == "__main__":
+def EC_extraction_main():
+    global EC_EXTRACTION_ORIGINALS
+    global EC_EXTRACTION_VARIANTS
+    global EC_EXTRACTION_UPSCALES
 
     # https://docs.python.org/3/library/time.html#time.perf_counter
     start = time.perf_counter()
@@ -614,8 +621,8 @@ if __name__ == "__main__":
     parser.add_argument('-k', '--key', type=str, default="",
                         help='Leonardo API key')
     # Add an optional argument for how many days to download
-    parser.add_argument('-d', '--days', type=int, default=1,
-                        help='Number of days to download - 0 for unlimited (default: 1)')
+    parser.add_argument('-d', '--days', type=int, default=2,
+                        help='Number of days to download - 0 for unlimited (default: 2)')
     # Add an optional argument to skip the most recent generations
     parser.add_argument('-s', '--skip', type=int, default=0,
                         help='Number of generations to skip (default: 0)')
@@ -639,44 +646,57 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Access the value
-    num_days = args.days
-    all_leonardo_dir = args.leonardo_dir
+    days = args.days
+    leonardo_dir = args.leonardo_dir
     # if the folder does not exist, create it
-    if not os.path.exists(all_leonardo_dir):
-        os.makedirs(all_leonardo_dir)
+    if not os.path.exists(leonardo_dir):
+        os.makedirs(leonardo_dir)
     skip = args.skip
-    variants = args.variants
-    upscales = args.upscale
+    EC_EXTRACTION_VARIANTS = args.variants
+    EC_EXTRACTION_UPSCALES = args.upscale
     faces = args.faces
-    originals = args.originals
+    EC_EXTRACTION_ORIGINALS = args.originals
 
     if args.key != "":
-        bearer = args.key
+        EC_EXTRACTION_KEY = args.key
         print(f'using bearer key: from command line')
 
-    userid, username = get_userid_from_bearer(bearer)
-    print(f'userid: {userid}, username: {username}')
-
-    print(f'Will extract all days to {all_leonardo_dir}') if num_days == 0 else print(
-        f'Will extract the last {num_days} days to {all_leonardo_dir}')
+    print(f'Will extract all days to {leonardo_dir}') if days == 0 else print(
+        f'Will extract the last {days} days to {leonardo_dir}')
     print(f'Will skip the first: {skip} generations') if skip > 0 else print(
         'Will NOT skip any generations')
-    print('will download originals') if originals else print(
+    print('will download originals') if EC_EXTRACTION_ORIGINALS else print(
         'will NOT download originals')
-    print('will order generation of UPSCALE variants (could consume lots of tokens - 5 per order)') if variants else print(
+    print('will order generation of UPSCALE variants (could consume lots of tokens - 5 per order)') if EC_EXTRACTION_VARIANTS else print(
         'will NOT generate variants')
-    print(f'will upscale images 2x, 3x, or 4x, limited to {MAX_SIZE/1_000_000} MPixels') if upscales else print(
+    print(f'will upscale images 2x, 3x, or 4x, limited to {EC_EXTRACTION_MAX_SIZE/1_000_000} MPixels') if EC_EXTRACTION_UPSCALES else print(
         'will NOT upscale images')
     print('will detect faces') if faces else print(
         'will NOT detect faces')
 
     with cf.ProcessPoolExecutor() as executor:
-        extract(num_days, all_leonardo_dir, skip, variants)
+        extract(days, leonardo_dir, skip, executor)
 
     # wait for all threads to finish
-    for thread in threads:
+    for thread in EC_EXTRACTION_threads:
         thread.join()
 
     print(f'Done...{stats()}')
     finish = time.perf_counter()
     print(f'Finished in {round(finish-start, 2)} second(s)')
+
+
+EC_EXTRACTION_STATS = {'downloaded': 0, 'ordered': 0, 'upscaled': 0,
+                       'generations': 0, 'originals': 0, 'variants': 0}
+
+
+EC_EXTRACTION_MAX_SIZE = 45_000_000
+EC_EXTRACTION_threads = []
+EC_EXTRACTION_ORIGINALS = False
+EC_EXTRACTION_VARIANTS = False
+EC_EXTRACTION_UPSCALES = False
+EC_EXTRACTION_KEY = ""
+
+
+if __name__ == "__main__":
+    EC_extraction_main()

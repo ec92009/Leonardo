@@ -1,4 +1,5 @@
 import tkinter as tk    # https://docs.python.org/3/library/tkinter.html
+# https://tkdocs.com/shipman/grid.html
 
 from tkinter import filedialog
 import concurrent.futures as cf
@@ -46,14 +47,16 @@ def start_extraction():
         with cf.ThreadPoolExecutor() as TPexecutor:
             f = TPexecutor.submit(EC_extraction.extract, days,
                                   leonardo_dir, skip, PPexecutor)
-            print(f'f.result: {f.result()}')
+            print(f'Result: {f.result()}')
 
 
 # Function to resize the output window
 
 
 def resize_output(event):
-    output_text.config(width=(app.winfo_width() - 5))
+    # output_text.config(width=(app.winfo_width() - 5))
+    print(app.winfo_width() - 5)
+    output_text.config(row=9, column=0, columnspan=3)
 
 
 # Create the main application window
@@ -85,39 +88,53 @@ upscale_var.set(True)
 
 
 # Labels and Entry fields
-tk.Label(app, text="Download Folder:").grid(row=0, column=0)
-tk.Entry(app, textvariable=download_folder_var, width=40).grid(row=0, column=1)
-tk.Button(app, text="Browse", command=browse_folder).grid(row=0, column=2)
+tk.Label(app, text="Download Folder:").grid(
+    row=0, column=0, sticky=tk.E)
+tk.Entry(app, textvariable=download_folder_var, width=30).grid(
+    row=0, column=1, sticky=tk.E+tk.W)
+tk.Button(app, text="...", width=2, command=browse_folder).grid(
+    row=0, column=2, sticky=tk.W)
 
-tk.Label(app, text="API Key:").grid(row=1, column=0)
-tk.Entry(app, textvariable=api_key_var).grid(row=1, column=1)
+tk.Label(app, text="API Key:").grid(row=1, column=0, sticky=tk.E)
+tk.Entry(app, textvariable=api_key_var).grid(
+    row=1, column=1, sticky=tk.E+tk.W, columnspan=3)
 
-tk.Label(app, text="Number of Days:").grid(row=2, column=0)
-tk.Entry(app, textvariable=num_days_var).grid(row=2, column=1)
+tk.Label(app, text="Number of Days:").grid(
+    row=2, column=0, sticky=tk.E)
+tk.Entry(app, textvariable=num_days_var).grid(
+    row=2, column=1, sticky=tk.E+tk.W, columnspan=3)
 
-tk.Label(app, text="Skip:").grid(row=3, column=0)
-tk.Entry(app, textvariable=skip_var).grid(row=3, column=1)
+tk.Label(app, text="Skip:").grid(row=3, column=0, sticky=tk.E)
+tk.Entry(app, textvariable=skip_var).grid(
+    row=3, column=1, sticky=tk.E+tk.W, columnspan=3)
 
 tk.Checkbutton(app, text="Originals",
-               variable=originals_var).grid(row=4, column=0)
+               variable=originals_var).grid(row=4, column=1, sticky=tk.W)
+tk.Label(app, text="Download Originals:").grid(
+    row=4, column=0, sticky=tk.E)
 tk.Checkbutton(app, text="Variants",
-               variable=variants_var).grid(row=4, column=1)
-tk.Checkbutton(app, text="Upscale", variable=upscale_var).grid(row=4, column=2)
+               variable=variants_var).grid(row=5, column=1, sticky=tk.W)
+tk.Label(app, text="Order Variants:").grid(row=5, column=0, sticky=tk.E)
+tk.Checkbutton(app, text="Upscale",
+               variable=upscale_var).grid(row=6,  column=1, sticky=tk.W)
+tk.Label(app, text="Scale 2x,3x,or 4x up to 45MPx").grid(
+    row=6, column=0, sticky=tk.E)
 
 # Start button
-tk.Button(app, text="Start", command=start_extraction).grid(row=5, column=0)
+tk.Button(app, text="Start", command=start_extraction).grid(
+    row=7, column=1, sticky=tk.E+tk.W)
 # Stop button
-tk.Button(app, text="Stop", command=stop_extraction).grid(row=5, column=2)
+tk.Button(app, text="Stop", command=stop_extraction).grid(
+    row=8, column=1, sticky=tk.E+tk.W)
 
 # Output text field
-output_text = tk.Text(app, wrap=tk.WORD, height=10,
-                      width=(app.winfo_width() - 5))
-output_text.grid(row=6, column=0, columnspan=3)
+output_text = tk.Text(app, wrap=tk.WORD, height=10)
+output_text.grid(row=9, column=0, columnspan=3)
 output_text.config(state=tk.DISABLED)
 
 
 # Bind the resize function to the "<Configure>" event of the main window
-# app.bind("<Configure>", resize_output)
+app.bind("<Configure>", resize_output)
 
 # Start the Tkinter event loop
 app.mainloop()

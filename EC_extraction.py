@@ -140,13 +140,16 @@ def upscale_one_picture(src_path, pic_Id, iter):
 
                 stats(upscaled=1)
 
-                face_found = detect_faces(dest_path) if faces else False
+                face_found = detect_faces(
+                    dest_path) if EC_EXTRACTION_FACES else False
             else:
                 print(f'Upscaled version already exists, skipping')
                 if os.path.exists(dest_path):
-                    face_found = detect_faces(dest_path) if faces else False
+                    face_found = detect_faces(
+                        dest_path) if EC_EXTRACTION_FACES else False
                 else:
-                    face_found = detect_faces(face_path) if faces else False
+                    face_found = detect_faces(
+                        face_path) if EC_EXTRACTION_FACES else False
 
         else:
             # if the file is too large to resize, say so and take it out of the way
@@ -156,7 +159,8 @@ def upscale_one_picture(src_path, pic_Id, iter):
                 dst_dir, f"{basename}.jpg")
 
             shutil.copyfile(src_path, dest_path)
-            face_found = detect_faces(dest_path) if faces else False
+            face_found = detect_faces(
+                dest_path) if EC_EXTRACTION_FACES else False
 
         if face_found:
             face_path = os.path.join(face_dir, os.path.basename(dest_path))
@@ -198,6 +202,9 @@ def add_model(conn, modelId):
             # print(f'---->var: {var}')
         except Exception as e:
             # traceback.print_exc()
+            return
+
+        if var == None:
             return
 
         id = var["id"]
@@ -676,6 +683,8 @@ def EC_extraction_main():
 
     with cf.ProcessPoolExecutor() as executor:
         extract(days, leonardo_dir, skip, executor)
+        print(
+            "Finished extracting generations ... Waiting for upscalinsubprocesses to finish")
 
     # wait for all threads to finish
     for thread in EC_EXTRACTION_threads:
@@ -695,6 +704,7 @@ EC_EXTRACTION_threads = []
 EC_EXTRACTION_ORIGINALS = False
 EC_EXTRACTION_VARIANTS = False
 EC_EXTRACTION_UPSCALES = False
+EC_EXTRACTION_FACES = False
 EC_EXTRACTION_KEY = ""
 
 

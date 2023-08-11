@@ -95,13 +95,11 @@ def file_with_string_exists(folder_path, search_string):
 def upscale_one_picture(src_path, pic_Id, iter):
 
     basename = os.path.basename(src_path)
+    rootname = os.path.splitext(basename)[0]
     src_dir = os.path.dirname(src_path)
     dst_dir = f'{src_dir}/Scaled'
-    face_dir = f'{src_dir}/Faces'
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
-    if not os.path.exists(face_dir):
-        os.makedirs(face_dir)
     # collect title and keywords from the image
     iptc_title, iptc_keywords = get_iptc_data_from_image(src_path)
 
@@ -110,9 +108,6 @@ def upscale_one_picture(src_path, pic_Id, iter):
     # if a file exists with pic_Id in the name
     if file_with_string_exists(dst_dir, pic_Id):
         # print(f'Upscaled version already exists in {dst_dir}, skipping')
-        return
-    if file_with_string_exists(face_dir, pic_Id):
-        # print(f'Upscaled version already exists in {face_dir}, skipping')
         return
 
     # Open the image
@@ -125,11 +120,10 @@ def upscale_one_picture(src_path, pic_Id, iter):
 
         if ratio >= 2:
             # print(f'ratio = {ratio}')
-            dest_path = os.path.join(dst_dir, f"{basename}x{ratio}.jpg")
-            face_path = os.path.join(face_dir, f"{basename}x{ratio}.jpg")
+            dest_path = os.path.join(dst_dir, f"{rootname}x{ratio}.jpg")
 
             # if the destination file does not exists, skip it
-            if not os.path.exists(dest_path) and not os.path.exists(face_path):
+            if not os.path.exists(dest_path):
                 print(
                     f"{iter} scaling {ratio}x from {width}x{height} to {width*ratio}x{height*ratio} ie. {width*ratio*height*ratio/1_000_000} Mpixels")
                 command = f'./realesrgan-ncnn-vulkan -i "{src_path}" -o "{dest_path}" -s {ratio}'
@@ -140,32 +134,16 @@ def upscale_one_picture(src_path, pic_Id, iter):
 
                 stats(upscaled=1)
 
-                face_found = detect_faces(
-                    dest_path) if EC_EXTRACTION_FACES else False
             else:
                 print(f'Upscaled version already exists, skipping')
-                if os.path.exists(dest_path):
-                    face_found = detect_faces(
-                        dest_path) if EC_EXTRACTION_FACES else False
-                else:
-                    face_found = detect_faces(
-                        face_path) if EC_EXTRACTION_FACES else False
 
         else:
             # if the file is too large to resize, say so and take it out of the way
             print(
                 f'current size: {width}x{height} too big to upscale')
-            dest_path = os.path.join(
-                dst_dir, f"{basename}.jpg")
+            dest_path = os.path.join(dst_dir, f"{rootname}.jpg")
 
             shutil.copyfile(src_path, dest_path)
-            face_found = detect_faces(
-                dest_path) if EC_EXTRACTION_FACES else False
-
-        if face_found:
-            face_path = os.path.join(face_dir, os.path.basename(dest_path))
-            if os.path.exists(dest_path):
-                os.replace(dest_path, face_path)
 
     # except:
     #     traceback.print_exc()
@@ -659,9 +637,12 @@ def EC_extraction_main():
     if not os.path.exists(leonardo_dir):
         os.makedirs(leonardo_dir)
     skip = args.skip
+
     EC_EXTRACTION_VARIANTS = args.variants
+
     EC_EXTRACTION_UPSCALES = args.upscale
-    faces = args.faces
+    EC_EXTRACTION_UPSCALES = True
+
     EC_EXTRACTION_ORIGINALS = args.originals
 
     if args.key != "":
@@ -678,13 +659,11 @@ def EC_extraction_main():
         'will NOT generate variants')
     print(f'will upscale images 2x, 3x, or 4x, limited to {EC_EXTRACTION_MAX_SIZE/1_000_000} MPixels') if EC_EXTRACTION_UPSCALES else print(
         'will NOT upscale images')
-    print('will detect faces') if faces else print(
-        'will NOT detect faces')
 
     with cf.ProcessPoolExecutor() as executor:
         extract(days, leonardo_dir, skip, executor)
         print(
-            "Finished extracting generations ... Waiting for upscalinsubprocesses to finish")
+            "Finished extracting generations ... Waiting for upscaling subprocesses to finish")
 
     # wait for all threads to finish
     for thread in EC_EXTRACTION_threads:
@@ -702,8 +681,8 @@ EC_EXTRACTION_STATS = {'downloaded': 0, 'ordered': 0, 'upscaled': 0,
 EC_EXTRACTION_MAX_SIZE = 45_000_000
 EC_EXTRACTION_threads = []
 EC_EXTRACTION_ORIGINALS = False
-EC_EXTRACTION_VARIANTS = False
-EC_EXTRACTION_UPSCALES = False
+EC_EXTRACTION_VARIANTS = True
+EC_EXTRACTION_UPSCALES = True
 EC_EXTRACTION_FACES = False
 EC_EXTRACTION_KEY = ""
 

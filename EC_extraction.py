@@ -4,7 +4,7 @@ import subprocess
 import traceback
 import requests
 import json
-from dotenv import dotenv_values
+from dotenv import dotenv_values  # pip install python-dotenv
 # import urllib.request
 import sqlite3
 import argparse     # https://docs.python.org/3/library/argparse.html
